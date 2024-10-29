@@ -36,6 +36,7 @@ function App() {
       </div>
 
       <h1>Hello World!</h1>
+      <p>hello les amis !!</p>
       <p>{Hi}</p>
       <button onClick={sayHi}>Say HI!</button>
 
