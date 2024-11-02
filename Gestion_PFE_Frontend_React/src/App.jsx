@@ -5,6 +5,16 @@ import viteLogo from '/vite.svg';
 import './App.css';
 import FirstPage from './first_page.jsx';
 
+/* 
+  *
+  *
+  *   NB :  c'est la main page ne pas toucher s'il vous plait !!!
+  *
+  *
+  *
+*/
+
+
 const Menu = [
   { name: 'Home', path: '/' },
   { name: 'Activities', path: '/activities' },
