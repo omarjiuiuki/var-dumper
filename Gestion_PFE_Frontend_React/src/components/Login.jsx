@@ -7,7 +7,7 @@ function Login() {
         <p className='font-medium text-lg text-gray-500 mt-4'>Bienvenue! Veuillez saisir vos détails.</p>
         <div className='mt-8'>
             <div>
-                <label className='text-lg font-medium text-black'>Email    </label>
+                <label className='text-lg font-medium text-black'>Emaile   </label>
                 <input
                 className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent text-black'
                 placeholder='Entrez votre email'
