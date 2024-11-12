@@ -1,9 +1,14 @@
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
-import FirstPage from './first_page.jsx';
+//import { useState } from 'react';
+//import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+//import reactLogo from './assets/react.svg';
+//import viteLogo from '/vite.svg';
+//import './App.css';
+//import FirstPage from './first_page.jsx';
+import Login from './components/Login';
+
+import SoutenancesTable from './components/SoutenancesTable';
+
+
 
 /* 
   *
@@ -14,7 +19,7 @@ import FirstPage from './first_page.jsx';
   *
 */
 
-
+/*
 const Menu = [
   { name: 'Home', path: '/' },
   { name: 'Activities', path: '/activities' },
@@ -58,6 +63,34 @@ function App() {
       </Routes>
     </Router>
   );
+}
+*/
+
+
+  function App() {
+    return (
+      /*
+<div className="w-full  flex items-center justify-center ">
+  <div className='bg-white px-10 py-20    border-gray-100'>
+  <SoutenancesTable/>
+  </div>
+  </div>*/
+/*
+  <div className="w-full h-screen flex items-center justify-center">
+  <div className="bg-white px-10 py-20 border-gray-100 w-full h-full overflow-auto">
+    <SoutenancesTable />
+  </div>
+</div>*/
+
+
+<div className='flex w-full h-screen'>
+  <div className="w-full  flex items-center justify-center ">
+  <Login />
+  </div>
+
+</div>
+ 
+);
 }
 
 export default App;
