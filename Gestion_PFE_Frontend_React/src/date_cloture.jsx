@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { TextField, Button, Container, Typography, Box, Grid, Paper } from '@mui/material';
 
-const Admin = () => {
+const DateCloture = () => {
   const [dates, setDates] = useState({
     period1: '',
     period2: '',
@@ -114,4 +114,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default DateCloture;

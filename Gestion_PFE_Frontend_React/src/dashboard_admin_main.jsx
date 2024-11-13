@@ -4,7 +4,8 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './dashboard_admin_main.css';
 import PageGestionUtilisateur from './gestion_des_utilisateurs.jsx';
-//import Login from './components/Login';
+import DateCloture from './date_cloture.jsx';
+import Login from './components/Login';
 
 
 import { FaBell, FaSearch } from 'react-icons/fa';
@@ -26,8 +27,8 @@ function DashboardAdminMain() {
     "Accueil": <h2>Accueil</h2>,
     "Utilisateurs": <PageGestionUtilisateur />,
     "Gestions Des PFEs": <h2>Gestions Des PFEs</h2>,
-    "Comptes": <h2>Gestion des Comptes</h2>,
-    "Emails et Notifications": <h2>Gestion des Emails et Notifications</h2>,
+    "Date de Cloture": <DateCloture />,
+    "Login": <Login />,
     "Paramètres": <h2>Paramètres du système</h2>,
   };
 

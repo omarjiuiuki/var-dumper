@@ -16,37 +16,36 @@ import { FaBell, FaSearch } from 'react-icons/fa';
 */
 
 function DashboardEtudiantMain() {
-
-
   const [activePage, setActivePage] = useState("Accueil");
 
-  const pages = {/* ici il faut cree des page selon le besoin */
-    "Accueil": <h2>Accueil</h2>,
-    "Utilisateurs": <h2>Utilisateurs</h2>,
-    "Gestions Des PFEs": <h2>Gestions Des PFEs</h2>,
-    "Comptes": <h2>Gestion des Comptes</h2>,
-    "Emails et Notifications": <h2>Gestion des Emails et Notifications</h2>,
-    "Paramètres": <h2>Paramètres du système</h2>,
-  };
-
+  const pages = [
+    { name: "Accueil", path: "/", component: <h1>Accueil</h1> },
+    { name: "Utilisateurs", path: "/utilisateurs", component:  <h1>Utilisateurs</h1> },
+    { name: "Gestions Des PFEs", path: "/gestions-des-pfes", component:  <h1>Gestions Des PFEs</h1> },
+    { name: "Comptes", path: "/comptes", component: <h1>Comptes</h1> },
+    { name: "Emails et Notifications", path: "/emails-notifications", component:  <h1>Emails et Notifications</h1> },
+    { name: "Paramètres", path: "/parametres", component:  <h1>Paramètres</h1> },
+  ];
 
   return (
+  <Router>
     <div className="dashboard">
       <nav className="sidebar">
         <div className='logo'>
         <h3>Tableau de Bord etudiant</h3>
-      
+        
         </div>
         
         <ul>
-          {Object.keys(pages).map((page) => (
-            <li 
-             key={page} 
-             onClick={() => setActivePage(page)}
-             className={activePage === page ? 'active-page' : ''}
-             >
-              {page}
-            </li>
+          {pages.map(({ name, path }) => (
+             /*  ici le il faut revoir le css car le link n'est pas comme le li */
+              <li
+                key={name}
+                onClick={() => setActivePage(name)}
+                className={activePage === name ? 'active-page' : ''}  
+              >
+                <Link to={path}>{name}</Link>
+              </li>
           ))}
         </ul>
       </nav>
@@ -62,20 +61,28 @@ function DashboardEtudiantMain() {
               
            <div className='account-notif-block'>
                <button onClick={()=>{
-                   alert('Bonjour etudiant');
+                   alert('Bonjour enseignant');
                 }}>Admin</button>
                <button onClick={()=>{
-                    alert('Bonjour etudiant');
+                    alert('Bonjour enseignant');
                  }}><FaBell size={17}/></button>
            </div>
             
         </div>
 
-        {pages[activePage]}
+        <Routes>
+            {pages.map(({ path, component }) => (
+              <Route key={path} path={path} element={component} />
+            ))}
+          </Routes>
+
+       
       
       </div>
     </div>
+  </Router>
   );
+
 /*
   return (
     <Router>
