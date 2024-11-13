@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 /*import reactLogo from './assets/react.svg';*/
 import viteLogo from '/vite.svg';
 import './dashboard_enseignant_main.css';
-import PageGestionUtilisateur from '../../gestion_des_utilisateurs.jsx';
+ //import PageGestionUtilisateur from '../../gestion_des_utilisateurs.jsx';
 
 import { FaBell, FaSearch } from 'react-icons/fa';
 /* 
@@ -20,9 +20,9 @@ function DashboardEnseignantMain() {
 
   const [activePage, setActivePage] = useState("Accueil");
 
-  const pages = {
+  const pages = {   /* ici il faut cree des page selon le besoin */
     "Accueil": <h2>Accueil</h2>,
-    "Utilisateurs": <PageGestionUtilisateur />,
+    "Utilisateurs":<h2>Utilisateurs</h2>,
     "Gestions Des PFEs": <h2>Gestions Des PFEs</h2>,
     "Comptes": <h2>Gestion des Comptes</h2>,
     "Emails et Notifications": <h2>Gestion des Emails et Notifications</h2>,

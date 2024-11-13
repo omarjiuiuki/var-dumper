@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
+import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
-import './dashboard_etudiant_main.css';
-//import PageGestionUtilisateur from '../../gestion_des_utilisateurs';
+import './dashboard_admin_main.css';
+import PageGestionUtilisateur from './gestion_des_utilisateurs.jsx';
 
 import { FaBell, FaSearch } from 'react-icons/fa';
 /* 
@@ -15,14 +15,14 @@ import { FaBell, FaSearch } from 'react-icons/fa';
   *
 */
 
-function DashboardEtudiantMain() {
+function DashboardAdminMain() {
 
 
   const [activePage, setActivePage] = useState("Accueil");
 
-  const pages = {/* ici il faut cree des page selon le besoin */
+  const pages = {
     "Accueil": <h2>Accueil</h2>,
-    "Utilisateurs": <h2>Utilisateurs</h2>,
+    "Utilisateurs": <PageGestionUtilisateur />,
     "Gestions Des PFEs": <h2>Gestions Des PFEs</h2>,
     "Comptes": <h2>Gestion des Comptes</h2>,
     "Emails et Notifications": <h2>Gestion des Emails et Notifications</h2>,
@@ -34,8 +34,8 @@ function DashboardEtudiantMain() {
     <div className="dashboard">
       <nav className="sidebar">
         <div className='logo'>
-        <h3>Tableau de Bord etudiant</h3>
-      
+        <h3>Tableau de Bord</h3>
+        <img src={reactLogo} alt="Logo React" />
         </div>
         
         <ul>
@@ -62,10 +62,10 @@ function DashboardEtudiantMain() {
               
            <div className='account-notif-block'>
                <button onClick={()=>{
-                   alert('Bonjour etudiant');
+                   alert('Bonjour Admin');
                 }}>Admin</button>
                <button onClick={()=>{
-                    alert('Bonjour etudiant');
+                    alert('Bonjour Admin');
                  }}><FaBell size={17}/></button>
            </div>
             
@@ -113,4 +113,4 @@ function DashboardEtudiantMain() {
   
 }
 
-export default DashboardEtudiantMain;
+export default DashboardAdminMain;
