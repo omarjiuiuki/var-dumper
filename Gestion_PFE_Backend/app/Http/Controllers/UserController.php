@@ -15,6 +15,7 @@ class UserController extends Controller
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:utilisateurs_pfe',
+            'mot_de_passe' =>'required|string|min:8',
             'type_utilisateur' => 'required|string|max:255',
             'intitule_option_master1' => 'required|string|max:255',
             'moyenne_m1' => 'required|string|max:255',
@@ -24,6 +25,7 @@ class UserController extends Controller
             'nom' => $validatedData['nom'],
             'prenom' => $validatedData['prenom'],
             'email' => $validatedData['email'],
+            'mot_de_passe' => bcrypt($validatedData['mot_de_passe']),
             'type_utilisateur' => $validatedData['type_utilisateur'],
         ]);
 
