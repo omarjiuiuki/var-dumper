@@ -1,0 +1,148 @@
+
+.dashboard {
+  display: flex;
+  height: 100vh;
+}
+
+.logo{
+  /* pour le logo et le titre !!*/
+  border-bottom:1px solid #1abc9c;
+  height: 20%;
+}
+
+.sidebar {
+  width: 15%;
+  min-width: 10%;
+  background-color: #2c3e50;
+  color: #fff;
+  padding-top: 20px;
+
+}
+
+.sidebar h3 { /* ici a la place du h3 mettre un logo */
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+
+.sidebar ul {
+  list-style: none;
+  padding: 30px 0px 30px 0px;
+}
+
+.sidebar ul li {
+  border: #15af90;
+  margin-bottom: 10px;
+  padding: 10px 10px 10px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sidebar ul li:hover {
+  color: white;
+/*  background-color: #15af90;*/
+  background-color: #344a5f;
+}
+
+
+.active-page {
+  background-color: #15af90; /* Couleur pour l'élément actif */
+  
+}
+
+.active-page:hover {
+  background-color: #15af90; /* Priorité pour l'élément actif */
+}
+
+
+
+
+/*  ici le style pour le contenue */
+
+.content {
+  flex-grow: 1;
+  max-width: 85%;/*85%*/
+  height: 100vh;
+  flex-direction: column;
+  display: flex;
+  background-color: #ffffff;
+  justify-content: flex-start;
+  align-items: center; 
+ /*overflow: scroll;*/
+}
+
+
+
+/*ici le style pour la AppBar */
+.appBar{
+  width: 100%;
+  padding: 18px 10px 15px 10px;
+  max-height: 10%;
+  display:flex;
+  justify-content:space-between;
+  align-items: center; 
+  background-color: #2c3e50;
+}
+
+
+.account-notif-block{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+
+
+.account-notif-block button{
+  margin: 0 10px;
+ }
+
+
+ 
+
+ .search-form{
+padding: 18px 0px 15px 10px;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  align-items: center;
+ }
+
+ .search-button{ 
+  background-color: #1abc9c; /* Couleur de fond du bouton */
+  border-radius: 0 5px 5px 0; /* Bord arrondi à droite */
+  border: none; /* Retire la bordure par défaut */
+  padding: 0 15px; /* Ajoute un peu de padding pour rendre le bouton plus large */
+  cursor: pointer; /* Ajoute un curseur de pointer */
+  height: 2.5em; 
+ }
+ .search-button:hover{ 
+  background-color: #15af90;
+}
+.search-form input{
+  margin: 0;
+  height: 2.5em;
+  width: 40%;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: none;
+  caret-color: #1abc9c;
+  padding-left: 10px; 
+  
+  }
+  .search-form input:hover{
+  background-color: #ececec;
+ }
+ .search-form input:focus{
+  outline: none;
+  box-shadow: 0 0 0 2px #1abc9c;
+ }
+
+
+
+input::placeholder {
+  color: #888;
+  
+}
+
+
+
