@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 import viteLogo from '/vite.svg';
 import './dashboard_entreprise_main.css';
-import PageGestionUtilisateur from '../../gestion_des_utilisateurs';
+import PageGestionUtilisateur from '../dashboard admin/pages/gestion_des_utilisateurs';
 
 import { FaBell, FaSearch } from 'react-icons/fa';
 /* 

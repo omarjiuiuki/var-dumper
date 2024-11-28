@@ -1,0 +1,195 @@
+.loading-indicator{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  border: 3px solid black;
+   padding: 12px;
+    text-align: left;
+     background-color: #34495e; 
+     color: #ffffff;
+
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+
+/* Alternance des couleurs des lignes */
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; /* Gris clair pour les lignes impaires */
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #ffffff; /* Blanc pour les lignes paires */
+  }
+  
+  /* Style pour la ligne sélectionnée */
+  .is-selected-student {
+    color: white; /* Texte en blanc */
+    background-color: #086dc5 !important; /* Bleu pour la sélection */
+  }
+  
+  /* Style pour le survol (sans affecter la ligne sélectionnée) */
+  tbody tr:hover {
+    cursor: pointer;
+    background-color: #d1d1d1; /* Gris clair au survol */
+  }
+  
+  /* Maintien du style de la ligne sélectionnée, même au survol */
+  tbody tr.is-selected-student:hover {
+    background-color: #086dc5 !important; /* Priorité au style sélectionné */
+  }
+ 
+
+
+/*=====================================================================================*/
+
+
+.type-search-list{
+  width: 100%;
+  
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+
+.type-search-list ul {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.type-search-list ul li {
+  display: inline;
+  height: 100%;
+  margin: 0px 5px 0px 5px;
+ 
+  padding: 10px 30px 10px 0px;
+  
+  cursor: pointer;
+   
+}
+
+.type-search-list ul li:hover {
+  height: 100%;
+  color: #d11717;
+
+}
+
+
+.active-item-search{
+  border-radius: 1em;
+  color: #15af90;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+
+.active-item-search:hover{
+  color: #15af90 !important;
+}
+
+
+
+
+
+/*=====================================================================================*/
+/*  ici le style pour la filtration de donner  */
+
+.header{
+
+display: flex;
+justify-content: space-between;
+}
+
+  .search-filter h2{
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+  }
+
+  .nb-user {
+    background-color: #cccccc;
+    padding: 10px;
+    margin: 20px 20px 0px 20px;
+    border: 1px solid #2c3e50;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px #2c3e50;
+    width: 20%;
+   }
+ 
+
+  .nb-user h3{
+    display: flex;
+    justify-content: center;
+   padding: 10px;
+  }
+  .nb-user p{
+    text-align: center;
+    padding: 10px;
+   }
+ 
+
+
+.filter-link{
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  margin: 0px;
+  padding: 20px;
+  width: 100%;
+
+}
+
+
+.type-search{
+
+  width: 55%;
+
+}
+.type-search input{
+   width: 70%;
+}
+
+.type-search-list{
+margin-bottom: 10px;
+}
+
+
+.modif-link {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+  width: 50%;
+
+} 
+
+
+.modif-link a {
+  box-shadow: 3px 3px 5px #2c3e50;
+  background-color: #2c3e50;
+ margin-left: 1em;
+ margin-right: 1em;
+ border-radius: 5px;
+ padding: 10px;
+ color: white;
+}
+.modif-link a:hover{
+  color: white;
+  background-color: #15af90;
+  
+}

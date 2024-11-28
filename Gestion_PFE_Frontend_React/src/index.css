@@ -1,9 +1,10 @@
 
 
+/*
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+*/
 
 
 * {
@@ -21,6 +22,16 @@ html, body {
 
 #root{
   font-family: Arial, Helvetica, sans-serif;
+
+}
+
+a {
+  color: white;
+  text-decoration: none; /* Supprime le soulignement si nécessaire */
+}
+
+a:hover {
+  color: white; /* Changer la couleur au survol */
 }
 
 button {
@@ -37,6 +48,33 @@ button:hover {
   background-color: #1abc9c;
 }
 
+
+input{
+  margin: 0;
+  height: 2.5em;
+  width: 40%;
+  border-radius: 5px;
+ 
+  border: 1px solid #2c3e50;
+  caret-color: #1abc9c;
+  padding-left: 10px; 
+  
+  }
+ input:hover{
+  background-color: #ececec;
+ }
+ input:focus{
+   border: none;
+  outline: none;
+  box-shadow: 0 0 0 2px #1abc9c;
+ }
+
+
+
+input::placeholder {
+  color: #888;
+  
+}
 
 
 /*
@@ -101,3 +139,5 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }*/
+
+
