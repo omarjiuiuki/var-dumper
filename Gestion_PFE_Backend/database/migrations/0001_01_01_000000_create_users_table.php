@@ -200,6 +200,18 @@ return new class extends Migration
             $table->timestamps();
         });
         
+        Schema::create('formulaire_pfe_template', function (Blueprint $table) {
+            $table->id();
+            $table->string('type_formulaire');
+            $table->date('date_ouverture');
+            $table->date('date_cloture');
+            $table->foreignId('utilisateur_pfe_id')
+                  ->constrained('utilisateurs_pfe')
+                  ->onDelete('cascade'); // Lier la clé étrangère à l'id de utilisateurs_pfe
+
+            $table->timestamps();
+        });
+
 
 
         Schema::create('option_master', function (Blueprint $table) {
