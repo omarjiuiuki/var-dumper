@@ -33,7 +33,7 @@ const projectsData = [
   },
   { 
     id: 5, 
-    name: "Cryptographie avancée", 
+    name: "Cryptographie avancéee", 
     description: "Étudier des techniques cryptographiques modernes et leur sécurité.", 
     teacher: "Prof. Moreau", 
     email: "moreau@universite.com",
