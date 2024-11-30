@@ -10,6 +10,7 @@ import Etudiant from '../../../models/etudiant';
 import '../styles/view_etudiant.css';
 import UlNavigation from '../../../components/my_ul_navigation_list';
 import UseFetchEtudiants from '../../../data/etudiant_data';
+import { data } from 'autoprefixer';
 
 function ViewEtudiant() {
 
@@ -136,20 +137,26 @@ function ViewEtudiant() {
         </div>
       );
     }
-  
+    if (dataEtu.length == 0) {
+      return (
+        <div className='no-data'>
+          <p>Aucun Etudiant Trouver...</p>
+        </div>
+      );
+    }
     // If filteredList is not empty, render the filtered list
     if (filteredList.length > 0) {
       return (
-        <table>
+        <table className='style-table'>
           <thead>
             <tr>
-              <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>N°</th>
-              <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>Nom</th>
-              <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>Prénom</th>
-              <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>Email</th>
-              <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>Role utilisateur</th>
-              <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>Intitulé Option</th>
-              <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>Moyenne Master 1</th>
+              <th>N°</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Email</th>
+              <th>Role utilisateur</th>
+              <th>Intitulé Option</th>
+              <th>Moyenne Master 1</th>
             </tr>
           </thead>
           <tbody>
@@ -181,16 +188,16 @@ function ViewEtudiant() {
     // If dataEtu is available and filteredList is empty, render dataEtu
     if (dataEtu && dataEtu.length > 0) {
       return (
-        <table>
+        <table className='style-table'>
           <thead>
             <tr>
-            <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>N°</th>
-              <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>Nom</th>
-              <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>Prénom</th>
-              <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>Email</th>
-              <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>Role utilisateur</th>
-              <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>Intitulé Option</th>
-              <th style={{ border: '1px solid black', padding: '12px', textAlign: 'left', backgroundColor: '#34495e', color: 'white' }}>Moyenne Master 1</th>
+              <th>N°</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Email</th>
+              <th>Role utilisateur</th>
+              <th>Intitulé Option</th>
+              <th>Moyenne Master 1</th>
           
             </tr>
           </thead>

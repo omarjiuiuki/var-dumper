@@ -4,21 +4,17 @@
     align-items: center;
 }
 
-table {
+.style-table {
   border-collapse: collapse;
   width: 100%;
 }
 
-th {
-  border: 3px solid black;
+.style-table thead tr th {
+  border: 1px solid black;
    padding: 12px;
     text-align: left;
      background-color: #34495e; 
      color: #ffffff;
-
-  border: 1px solid black;
-  padding: 8px;
-  text-align: left;
 }
 
 

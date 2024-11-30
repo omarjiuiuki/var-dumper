@@ -77,6 +77,87 @@ input::placeholder {
 }
 
 
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espacement entre les champs */
+}
+
+form input {
+   
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+form input:focus {
+  border-color: #15af90; /* Vert pour le focus */
+  outline: none;
+  box-shadow: 0 0 5px #15af9080;
+}
+
+form textarea:focus {
+  border-color: #15af90; /* Vert pour le focus */
+ outline: none;
+  box-shadow: 0 0 5px #15af9080;
+}
+
+
+form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  font-size: 14px;
+  overflow-y: auto; /* Ajoute une barre de défilement verticale si nécessaire */
+  word-wrap: break-word; /* Permet de couper les mots longs pour qu'ils n'éclatent pas le champ */
+  resize: vertical; /* Permet le redimensionnement vertical */
+  min-height: 100px; /* Hauteur minimale */
+  max-height: 150px; /* Hauteur maximale */
+}
+
+
+ 
+
+/* Styles pour la barre de scrolle pour plus de style pour les page !! */
+
+
+/* Styles pour la barre de défilement */
+::-webkit-scrollbar {
+  width: 2px; /* largeur de la barre verticale */
+  height: 10px; /* hauteur de la barre horizontale */
+}
+::-webkit-scrollbar:focus{
+  width: 10px; /* largeur de la barre verticale */
+}
+
+
+
+/* Couleur de l'arrière-plan de la barre */
+::-webkit-scrollbar-track {
+  background: #f0f0f0; 
+  border-radius: 10px;
+}
+
+/* Couleur de la glissière (scroll thumb) */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Couleur de la glissière lors du survol */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;  
+}
+
+
+
+
+
 /*
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
