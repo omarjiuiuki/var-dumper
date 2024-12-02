@@ -1,130 +1,137 @@
-import { useState } from 'react';
+// src/views/dashboard_enseignant_main.jsx
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-/*import reactLogo from './assets/react.svg';*/
 import viteLogo from '/vite.svg';
 import './dashboard_enseignant_main.css';
- //import PageGestionUtilisateur from '../../gestion_des_utilisateurs.jsx';
-
+import ProposalController from '../../controllers/proposalController';
+import ProposalForm from './ProposalForm';
+import SelectionProjets from './SelectionProjets'; // Importation du composant SelectionProjets
 import { FaBell, FaSearch } from 'react-icons/fa';
-/* 
-  *
-  *
-  *   NB :  c'est la main page ne pas toucher s'il vous plait !!!
-  *
-  *
-  *
-*/
+import ProposalList from './ProposalList'; // Adjust the path as necessary
 
-function DashboardEnseignantMain() {
+const DashboardEnseignantMain = () => {
+    const [activePage, setActivePage] = useState("Accueil");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingIndex, setEditingIndex] = useState(null);
+    const submissionDeadline = '2026-12-15'; // Exemple de date limite
 
+    const [proposals, setProposals] = useState(ProposalController.getProposals());
 
-  const [activePage, setActivePage] = useState("Accueil");
+    const handleAddProposal = (title, type, options, description) => {
+        const currentDate = new Date();
+        const deadlineDate = new Date(submissionDeadline);
 
-  const pages = [
-    { name: "Accueil", path: "/", component: <h1>Accueil</h1> },
-    { name: "Utilisateurs", path: "/utilisateurs", component:  <h1>Utilisateurs</h1> },
-    { name: "Gestions Des PFEs", path: "/gestions-des-pfes", component:  <h1>Gestions Des PFEs</h1> },
-    { name: "Comptes", path: "/comptes", component: <h1>Comptes</h1> },
-    { name: "Emails et Notifications", path: "/emails-notifications", component:  <h1>Emails et Notifications</h1> },
-    { name: "Paramètres", path: "/parametres", component:  <h1>Paramètres</h1> },
-  ];
+        // Vérifiez si la date limite est dépassée
+        if (deadlineDate < currentDate) {
+            alert("La date de soumission est dépassée. Vous ne pouvez pas ajouter de proposition.");
+            return;
+        }
+        ProposalController.addProposal(title, type, options, description, submissionDeadline);
+        setProposals(ProposalController.getProposals()); // Mettre à jour la liste des propositions
+        setIsModalOpen(false);
+    };
 
-  return (
-  <Router>
-    <div className="dashboard">
-      <nav className="sidebar">
-        <div className='logo'>
-        <h3>Tableau de Bord enseigant</h3>
-        
-        </div>
-        
-        <ul>
-          {pages.map(({ name, path }) => (
-            /*  ici le il faut revoir le css car le link n'est pas comme le li */
-              <li
-                key={name}
-                onClick={() => setActivePage(name)}
-                className={activePage === name ? 'active-page' : ''}
-              >
-                <Link to={path}>{name}</Link>
-              </li>
-          ))}
-        </ul>
-      </nav>
-      <div className="content">
-        <div className="appBar">
-        
-            <form className='search-form' action="">
-            <input type="text" className='search' placeholder='Recherche...'/>
-            <button type='submit' className='search-button'><FaSearch /></button>
-            </form> 
-         
-             
-              
-           <div className='account-notif-block'>
-               <button onClick={()=>{
-                   alert('Bonjour enseignant');
-                }}>Admin</button>
-               <button onClick={()=>{
-                    alert('Bonjour enseignant');
-                 }}><FaBell size={17}/></button>
-           </div>
-            
-        </div>
+    const handleUpdateProposal = (index, title, type, options, description) => {
+        ProposalController.updateProposal(index, title, type, options, description);
+        setProposals(ProposalController.getProposals()); // Mettre à jour la liste des propositions
+        setIsModalOpen(false);
+    };
 
-        <Routes>
-            {pages.map(({ path, component }) => (
-              <Route key={path} path={path} element={component} />
-            ))}
-          </Routes>
+    const handleEditProposal = (index) => {
+        setEditingIndex(index);
+        setIsModalOpen(true);
+    };
 
+    const handleRemoveProposal = (index) => {
+        ProposalController.removeProposal(index); // Call the controller's remove function
+        setProposals(ProposalController.getProposals()); // Update the state to reflect the new proposals
+    };
+
+    const pages = [
+        { name: "Accueil", path: "/", component: <h1>Accueil</h1> },
+        { name: "Utilisateurs", path: "/utilisateurs", component: <h1>Utilisateurs</h1> },
+        { name: "Gestions Des PFEs", path: "/gestions-des-pfes", component: <h1>Gestions Des PFEs</h1> },
+        { name: "Comptes", path: "/comptes", component: <h1>Comptes</h1> },
+        { name: "Emails et Notifications", path: "/emails-notifications", component: <h1>Emails et Notifications</h1> },
+        { name: "Propositions", path: "/propositions", component: (
+            <div>
+                <h1 style={{ textAlign: 'center' }}>Propositions</h1>
+                <ProposalList 
+                    proposals={proposals} 
+                    removeProposal={handleRemoveProposal} 
+                    setEditingIndex={setEditingIndex} 
+                    setFormVisible={setIsModalOpen} 
+                    submissionDeadline={submissionDeadline}
+                    handleEditProposal={handleEditProposal}
+                />
+                <div className="button-container">
+                    <button className="add-proposal-button" onClick={() => { setIsModalOpen(true); setEditingIndex(null); }}>
+                        Ajouter Proposition
+                    </button>
+                </div>
+            </div>
+               )},
+               { name: "Sélection Projets", path: "/selection-projets", component: <SelectionProjets /> } // Ajout de la route pour SelectionProjets
+           ];
        
-      
-      </div>
-    </div>
-  </Router>
-  );
-
-   /* {pages[activePage]} */
-
-
-
-/*
-  return (
-    <Router>
-      <div id='menu_div'>
-        <ul id='menu' style={{ listStyle: 'none' }}>
-          {Menu.map(menu => (
-            <li key={menu.name}>
-              <Link id='link' to={menu.path}>{menu.name}</Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-       {/*   Ceci est un commentaire dans JSX 
+           return (
+               <Router>
+                   <div className="dashboard">
+                       <nav className="sidebar">
+                           <div className='logo'>
+                               <h3>Tableau de Bord Enseignant</h3>
+                           </div>
+                           <ul>
+                               {pages.map(({ name, path }) => (
+                                   <li
+                                       key={name}
+                                       onClick={() => setActivePage(name)}
+                                       className={activePage === name ? 'active-page' : ''}
+                                   >
+                                       <Link to={path}>{name}</Link>
+                                   </li>
+                               ))}
+                           </ul>
+                       </nav>
+                       <div className="content">
+                           <div className="appBar">
+                               <form className='search-form' action="">
+                                   <input type="text" className='search' placeholder='Recherche...' />
+                                   <button type='submit' className='search-button'><FaSearch /></button>
+                               </form>
+                               <div className='account-notif-block'>
+                                   <button onClick={() => { alert('Bonjour enseignant'); }}>Admin</button>
+                                   <button onClick={() => { alert('Bonjour enseignant'); }}><FaBell size={17} /></button>
+                               </div>
+                           </div>
        
-         <div id='content_div'>
-           <h1>Hello World!</h1>
-           <p>hello les amis !!</p>
-           <p>{Hi}</p>
-           <button onClick={sayHi}>Say HI!</button>
-         </div>
+                           <Routes>
+                               {pages.map(({ path, component }) => (
+                                   <Route key={path} path={path} element={component} />
+                               ))}
+                           </Routes>
        
-       */ 
-      /*}
-      
-      
-      
-
-      <Routes>
-        <Route path="/" element={<FirstPage />} />
-        <Route path="/activities" element={<h2>Activities Page</h2>} />
-        <Route path="/about-us" element={<h2>About Us Page</h2>} />
-        <Route path="/shop" element={<h2>Shop Page</h2>} />
-      </Routes>
- </Router>
-);*/
-  
-}
-
-export default DashboardEnseignantMain;
+                           {/* Modal for Proposal Form */}
+                           {isModalOpen && (
+                               <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+                                   <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                                       <button className="close-modal" onClick={() => setIsModalOpen(false)}>X</button>
+                                       <ProposalForm
+                                           addProposal={handleAddProposal}
+                                           updateProposal={handleUpdateProposal}
+                                           editingIndex={editingIndex}
+                                           proposals={proposals}
+                                           setEditingIndex={setEditingIndex}
+                                           setFormVisible={setIsModalOpen}
+                                           submissionDeadline={submissionDeadline}
+                                       />
+                                   </div>
+                               </div>
+                           )}
+                       </div>
+                   </div>
+               </Router>
+           );
+       }
+       
+       export default DashboardEnseignantMain;

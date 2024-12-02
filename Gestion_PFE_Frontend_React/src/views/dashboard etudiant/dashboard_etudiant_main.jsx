@@ -83,41 +83,7 @@ function DashboardEtudiantMain() {
   </Router>
   );
 
-/*
-  return (
-    <Router>
-      <div id='menu_div'>
-        <ul id='menu' style={{ listStyle: 'none' }}>
-          {Menu.map(menu => (
-            <li key={menu.name}>
-              <Link id='link' to={menu.path}>{menu.name}</Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-       {/*   Ceci est un commentaire dans JSX 
-       
-         <div id='content_div'>
-           <h1>Hello World!</h1>
-           <p>hello les amis !!</p>
-           <p>{Hi}</p>
-           <button onClick={sayHi}>Say HI!</button>
-         </div>
-       
-       */ /*}
-      
-      
-      
 
-      <Routes>
-        <Route path="/" element={<FirstPage />} />
-        <Route path="/activities" element={<h2>Activities Page</h2>} />
-        <Route path="/about-us" element={<h2>About Us Page</h2>} />
-        <Route path="/shop" element={<h2>Shop Page</h2>} />
-      </Routes>
-    </Router>
-  );*/
-  
 }
 
 export default DashboardEtudiantMain;
