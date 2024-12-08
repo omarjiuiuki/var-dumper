@@ -76,17 +76,21 @@ table {
 
 .table-pfe{
     width: 100%;
-    height:300px; 
+    height:400px; 
     overflow: auto; 
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
+
+
 table {
+    border-radius: 5px 5px 5px 5px;
     border-collapse: collapse;
     width: 100%;
     margin: 0;
   }
   thead  th {
+   
       position: sticky;
       top: 0;
       z-index: 2;/* Priorité pour éviter que le contenu le recouvre */
@@ -99,8 +103,13 @@ table {
 
  
   td{
+    width: fit-content;
+    max-width: 300px;
     border: 1px solid black ; /* Optionnel : bordure des cellules */
-    padding: 12px;
+    padding: 7px;
+    white-space: nowrap; /* Empêche le texte de s'étendre sur plusieurs lignes */
+    overflow: hidden; /* Cache le texte qui dépasse */
+    text-overflow: ellipsis; /* Ajoute des points de suspension */
   }
 
 
@@ -159,6 +168,12 @@ table {
     background-color: #15af90; /* Vert pour le hover */
   }
   
+  li.active-status {
+    background-color: #15af90;
+  }
+
+
+
   /* Main content */
   .main-content-pfe {
     width: 100%;
@@ -166,16 +181,29 @@ table {
     overflow: auto;
   }
   
-  .head-gestion-pfe {
+  .head-gestion-pfe-visible {
+    
     width: 100%;
     background-color: #ecf0f1; 
     border: 1px solid #dcdcdc;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-    
+    margin-left: 20px;
+
+  }
+
+  .head-gestion-pfe {
+    display: none;
+    width: 100%;
+    background-color: #ecf0f1; 
+    border: 1px solid #dcdcdc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
     margin-left: 20px;
   }
+
   
   .head-gestion-pfe h1 {
     margin: 0;
@@ -199,22 +227,34 @@ table {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Légère ombre */
   }
-  .form-niv-1{
-    display: flex;
-    
-  }
-  .form-niv-1 div input{
-    margin: 5px;
-   }
+
+
+
+ label{
+  font-size: 12px;
+ }
   
+
+
+   
   .head-gestion-action-pfe h2 {
     margin-top: 0;
     font-size: 18px;
     color: #2c3e50;
   }
   
+  .head-gestion-action-pfe div {
+   min-width: 200px;
+  }
   
   
+  
+
+
+
+
+
+
   /*
   form {
     display: flex;

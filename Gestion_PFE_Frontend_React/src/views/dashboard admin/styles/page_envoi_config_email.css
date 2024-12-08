@@ -1,0 +1,102 @@
+/* Container for the list of email templates */
+.head-envoi-email {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    background-color: #ffffff; /* Darker background to highlight the header */
+   /* padding: 10px;*/
+   margin-bottom: 20px;
+  }
+  
+  .head-envoi-email .template-area ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    /*gap: 15px; /* Space between list items */
+  }
+  
+  .head-envoi-email .template-area li {
+    color: rgb(0, 0, 0);
+    display: flex;
+    align-items: center ;
+    justify-content: space-between;
+/*    margin: 15px 15px;*/
+    padding: 10px 5px;
+    background-color: #ffffff; /* Dark blue color */
+   
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.3s; /* Add smooth transition */
+  }
+  
+  .head-envoi-email .template-area li:hover {
+    background-color: #e3e3e3; /* Green color for hover */
+  /*  transform: scale(1.05); /* Slightly enlarge the element on hover */
+  }
+  
+  .head-envoi-email .template-area li.active-status {
+    background-color: #e3e3e3; /*  when active */
+    border-top: 3px solid #15af90;
+ 
+  }
+  
+
+
+.page-email{
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+  /* Styling for the content section */
+  .content-envoi-email {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    background-color: #d4d4d4; /* Light background for content */
+    padding: 30px;
+    width: 95%;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    margin-bottom: 20px;
+  }
+  
+.content-envoi-email .textarea-email{
+  
+  width:70% ;
+  height: 100%;
+}
+
+.content-envoi-email  .info-date{
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+}
+
+
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .head-envoi-email {
+      flex-direction: column; /* Stack elements vertically */
+    }
+  
+    .head-envoi-email .template-area ul {
+      flex-direction: column; /* Stack list items vertically */
+    }
+  }
+  
+
+.container-email-modif{
+
+  width: 700px;
+}
+

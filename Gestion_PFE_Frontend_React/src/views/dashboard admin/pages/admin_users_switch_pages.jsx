@@ -50,18 +50,62 @@ function AddUserForm() {
         }
     };
 
+
+
+
+
+    const handleSubmitemail = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/ajout-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                alert('Email added successfully');
+                document.getElementsByName('type_email')[0].value = '';
+                document.getElementsByName('contenue')[0].value = '';
+            } else {
+                const errorData = await response.json();
+                alert(`Error: ${JSON.stringify(errorData)}`);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while adding the email .');
+        }
+    };
+
+ 
+
+
+
+
+
+
+
+
     return (
       <div>
          <h1>{parametre}</h1>
-        <form onSubmit={handleSubmit}>
-            <input type="text" name="nom" placeholder="Nom" onChange={handleChange} required />
+        <form onSubmit={/*handleSubmit*/ handleSubmitemail}>
+            {/*<input type="text" name="nom" placeholder="Nom" onChange={handleChange} required />
             <input type="text" name="prenom" placeholder="prenom" onChange={handleChange} required />
             <input type="text" name="intitule_option_master1" placeholder="intitule_option_master1" onChange={handleChange} required />
             <input type="text" name="moyenne_m1" placeholder="moyenne_m1" onChange={handleChange} required />
             <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
             <input type="password" name="mot_de_passe" placeholder="mot_de_passe" onChange={handleChange} required />
             <input type="text" name="type_utilisateur" placeholder="type_utilisateur" onChange={handleChange} required />
-            <button type="submit">Add User</button>
+            */}
+            <input type="text" name="type_email" placeholder="type_email" onChange={handleChange} required />
+            <input type="text" name="contenue" placeholder="contenue" onChange={handleChange} required />
+         
+           {/* <button type="submit">Add User</button>*/}
+            <button type="submit">Add Email</button>
         </form>
         </div>
 

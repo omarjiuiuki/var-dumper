@@ -18,11 +18,12 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow-y: hidden; /* Empêche le scrolling vertical */
 }
 
 #root{
   font-family: Arial, Helvetica, sans-serif;
-
+  font-size: 13px;
 }
 
 a {
@@ -49,6 +50,8 @@ button:hover {
 }
 
 
+
+/*
 input{
   margin: 0;
   height: 2.5em;
@@ -75,7 +78,7 @@ input::placeholder {
   color: #888;
   
 }
-
+*/
 
 
 
@@ -85,7 +88,7 @@ form {
   gap: 10px; /* Espacement entre les champs */
 }
 
-form input {
+ input {
    
   width: 100%;
   padding: 10px;
@@ -94,21 +97,28 @@ form input {
   font-size: 14px;
 }
 
-form input:focus {
+input:hover{
+  background-color: #ececec;
+ }
+
+ input:focus {
   border-color: #15af90; /* Vert pour le focus */
   outline: none;
   box-shadow: 0 0 5px #15af9080;
 }
 
-form textarea:focus {
+ textarea:focus {
   border-color: #15af90; /* Vert pour le focus */
  outline: none;
   box-shadow: 0 0 5px #15af9080;
 }
 
 
-form textarea {
+ textarea {
   width: 100%;
+  height: 250px; 
+  max-height: 400px;
+  min-height: 250px;
   padding: 10px;
   border: 1px solid #dcdcdc;
   border-radius: 5px;
@@ -116,11 +126,13 @@ form textarea {
   overflow-y: auto; /* Ajoute une barre de défilement verticale si nécessaire */
   word-wrap: break-word; /* Permet de couper les mots longs pour qu'ils n'éclatent pas le champ */
   resize: vertical; /* Permet le redimensionnement vertical */
-  min-height: 100px; /* Hauteur minimale */
-  max-height: 150px; /* Hauteur maximale */
+  
 }
 
 
+textarea:hover {
+  background-color: #ececec;
+}
  
 
 /* Styles pour la barre de scrolle pour plus de style pour les page !! */
@@ -128,7 +140,7 @@ form textarea {
 
 /* Styles pour la barre de défilement */
 ::-webkit-scrollbar {
-  width: 2px; /* largeur de la barre verticale */
+  width: 4px; /* largeur de la barre verticale */
   height: 10px; /* hauteur de la barre horizontale */
 }
 ::-webkit-scrollbar:focus{
@@ -145,8 +157,8 @@ form textarea {
 
 /* Couleur de la glissière (scroll thumb) */
 ::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 10px;
+  background: #1abc9c;
+/*  border-radius: 10px;*/
 }
 
 /* Couleur de la glissière lors du survol */
@@ -157,9 +169,11 @@ form textarea {
 
 
 
-
 /*
+
 :root {
+
+ 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;

@@ -4,17 +4,20 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 import PageGestionUtilisateur from './gestion_des_utilisateurs.jsx';
 import DateCloture from './date_cloture.jsx';
-import Login from '../../../components/Login.jsx';
+import Login from '../../Login pages/Login.jsx';
 import '../styles/dashboard_admin_main.css';
 
 import { ClipLoader } from 'react-spinners';
-import { FaBell, FaSearch } from 'react-icons/fa';
+import { FaArrowRight, FaBars, FaBell, FaCross, FaHamburger, FaSearch } from 'react-icons/fa';
 import AddUserForm  from './admin_users_switch_pages.jsx';
 import HomePage from './home_page.jsx';
 import ViewEnseignant from './view_enseignant.jsx';
 import PageGestionEmail from './page_gestion_email.jsx';
 import GestionPFE from './gestion_pfes.jsx';
-import SoutenancesTable from '../../../components/SoutenancesTable.jsx';
+import SoutenancesTable from '../pages/SoutenancesTable.jsx';
+import { FaArrowLeft, FaX } from 'react-icons/fa6';
+import EvoieConfigEmail from './page_envoi_config_email.jsx';
+import MesRoutes from '../../../dossier routage/mes_routes.jsx';
 
 /* 
   *   
@@ -52,78 +55,89 @@ function DashboardAdminMain() {
    
   ];
 
+
+
+  const [isSidebarVisible, setSidebarVisible] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
+  };
+
+
+
   return (
     <Router>
-      <div className="dashboard">
-        <nav className="sidebar">
-          <div className="logo">
-            <h3>Tableau de Bord</h3>
-          </div>
-
-          <PageList
-            pages={pages}
-            activePage={activePage}
-            setActivePage={setActivePage}
-          />
-
-          {/* <ul>
-          {pages.map(({ name, path }) => (
-            //  ici le il faut revoir le css car le link n'est pas comme le li 
-              <li
-                key={name}
-                onClick={() => setActivePage(name)}
-                className={activePage === name ? 'active-page' : ''}
-              >
-                <Link to={path}>{name}</Link>
-              </li>
-          ))}
-        </ul>*/}
-        </nav>
-        <div className="content">
-           {/*
-             <div className="appBar">
-            <form className="search-form" action="">
-              <input
-                type="text"
-                className="search"
-                placeholder="Recherche..."
-              />
-              <button type="submit" className="search-button">
-                <FaSearch />
-              </button>
-            </form>
-
-            <div className="account-notif-block">
-              <button
-                onClick={() => {
-                  alert("Bonjour admin");
-                }}
-              >
-                Admin
-              </button>
-              <button
-                onClick={() => {
-                  alert("Bonjour admin");
-                }}
-              >
-                <FaBell size={17} />
-              </button>
+      <div className={`dashboard${isSidebarVisible ? "" : "-expanded"}`}>
+        {isSidebarVisible ? (
+          <nav className="sidebar">
+            <div className="logo">
+              <h3>Tableau de Bord</h3>
+             
             </div>
+
+            <PageList
+              pages={pages}
+              activePage={activePage}
+              setActivePage={setActivePage}
+            />
+
+        
+          </nav>
+        ) : null}
+
+    <div className='content-page'>
+        {/* Bouton pour afficher/masquer la sidebar */}
+        <div className="drawer-container">
+            <button
+              className="drawer-button"
+              onClick={toggleSidebar}
+            >
+              {isSidebarVisible ? <FaArrowLeft /> : <FaArrowRight />}
+            </button>
           </div>
-           */}
-     
-          <Routes>
-             {pages.map(({ path, component }) => (
+
+        <div className={`contenue${isSidebarVisible ? "" : "-expanded"}`}>
+       
+
+    
+
+         <Routes>
+            {pages.map(({ path, component }) => (
               <Route key={path} path={path} element={component} />
             ))}
-               <Route path="/gestions-des-emails/ajouter" element={<AddUserForm />} /> 
-              {/* 
+            <Route
+              path="/gestions-des-emails/configuration"
+              element={<EvoieConfigEmail />}
+            />
+            {/* 
                 ici on peut ajouter toute le routes que l'ont veut 
                                 
               <Route path="/utilisateurs/ajouter" element={<AjouteUtilisateur />} /> 
               */}
           </Routes>
         </div>
+
+      {/*  <div className={`content${isSidebarVisible ? "" : "-expanded"}`}>
+       
+
+    
+
+         <Routes>
+            {pages.map(({ path, component }) => (
+              <Route key={path} path={path} element={component} />
+            ))}
+            <Route
+              path="/gestions-des-emails/configuration"
+              element={<EvoieConfigEmail />}
+            />
+            {/* 
+                ici on peut ajouter toute le routes que l'ont veut 
+                                
+              <Route path="/utilisateurs/ajouter" element={<AjouteUtilisateur />} /> 
+              */}
+        {/*  </Routes>
+        </div>*/}
+        </div>  
       </div>
     </Router>
   );
@@ -155,6 +169,61 @@ function DashboardAdminMain() {
     );
   }
  
+
+
+
+
+
+   {/*
+        <div className={`icon-drawer${isSidebarVisible ? "" : "-expanded"}`}><FaHamburger/></div>
+
+             <div className="appBar">
+            <form className="search-form" action="">
+              <input
+                type="text"
+                className="search"
+                placeholder="Recherche..."
+              />
+              <button type="submit" className="search-button">
+                <FaSearch />
+              </button>
+            </form>
+
+            <div className="account-notif-block">
+              <button
+                onClick={() => {
+                  alert("Bonjour admin");
+                }}
+              >
+                Admin
+              </button>
+              <button
+                onClick={() => {
+                  alert("Bonjour admin");
+                }}
+              >
+                <FaBell size={17} />
+              </button>
+            </div>
+          </div>
+           */}
+
+
+
+
+    {/* <ul>
+          {pages.map(({ name, path }) => (
+            //  ici le il faut revoir le css car le link n'est pas comme le li 
+              <li
+                key={name}
+                onClick={() => setActivePage(name)}
+                className={activePage === name ? 'active-page' : ''}
+              >
+                <Link to={path}>{name}</Link>
+              </li>
+          ))}
+        </ul>*/}
+
 
 
 
