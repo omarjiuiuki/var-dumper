@@ -18,6 +18,8 @@ import SoutenancesTable from '../pages/SoutenancesTable.jsx';
 import { FaArrowLeft, FaX } from 'react-icons/fa6';
 import EvoieConfigEmail from './page_envoi_config_email.jsx';
 import MesRoutes from '../../../dossier routage/mes_routes.jsx';
+import GestionValidationPfe from '../../../ens_responsable_validation_pfe.jsx';
+import DetailPagePfe from './detail_page_pfe.jsx';
 
 /* 
   *   
@@ -52,6 +54,7 @@ function DashboardAdminMain() {
     { name: "Soutenance", path: "/soutenance", component: <SoutenancesTable/> },
     { name: "Login", path: "/login", component: <Login/> },
     { name: "Ajouter Utilisateurs", path: "/ajouter-utilisateurs", component: <AddUserForm/> },
+    { name: "Responsable", path: "/gestion-pfes-validation", component: <GestionValidationPfe/> },
    
   ];
 
@@ -108,6 +111,11 @@ function DashboardAdminMain() {
             <Route
               path="/gestions-des-emails/configuration"
               element={<EvoieConfigEmail />}
+            />
+
+             <Route
+              path="/gestion-pfes-validation/detail"
+              element={<DetailPagePfe />}
             />
             {/* 
                 ici on peut ajouter toute le routes que l'ont veut 
