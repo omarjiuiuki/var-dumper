@@ -6,6 +6,7 @@ import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { Link } from "react-router-dom";
 import './ens_responsable_validation_pfe.css';
 import UseFetchThemePfe from "./data/theme_pfe_data";
+import { FaEdit, FaPenAlt } from "react-icons/fa";
 
 function GestionValidationPfe() {
   const [mesPfe, setMesPfe] = useState([]);
@@ -15,7 +16,7 @@ function GestionValidationPfe() {
   const [color, setColor] = useState("");
 
   const { dataTheme , loading} = UseFetchThemePfe();
-
+  const detailUrl = `${window.location.pathname}/detail?id=`;
   // Fonction pour récupérer les données des PFE
   useEffect(() => {
     const fetchData = async () => {
@@ -56,16 +57,16 @@ function GestionValidationPfe() {
 
 
   return (
-    <div className="section-pfe" >
+    <div className="section-pfe">
       {/* Section pour sélectionner le statut */}
-      <div  className="section-pfe-status">
+      <div className="section-pfe-status">
         <h1>Gestion des Validations de PFE</h1>
-        <div  className="section-pfe-tableau" style={{ display: "flex", gap: "10px" }}>
+        <div
+          className="section-pfe-tableau"
+          style={{ display: "flex", gap: "10px" }}
+        >
           {["tous", "valide", "en_attente", "refuse"].map((status) => (
-            <button
-              key={status}
-              onClick={() => handleStatus(status)}
-            >
+            <button key={status} onClick={() => handleStatus(status)}>
               {status.charAt(0).toUpperCase() + status.slice(1)}
             </button>
           ))}
@@ -83,63 +84,100 @@ function GestionValidationPfe() {
               <th>Option</th>
               <th>Type PFE</th>
               <th>Status</th>
+              
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {dataTheme
-               .filter(
-                (pfe) =>{
-                    return (
-                        ((selectedStatus === "tous" || pfe.est_valider === selectedStatus) &&  (pfe.option === typeResp))
-                      );
-                }
-              )
+              .filter((pfe) => {
+                return (
+                  selectedStatus === "tous" ||
+                  pfe.est_valider === selectedStatus
+                );
+              })
               .map((pfe, index) => (
-                <tr className={detailShow && activePfe?.id === pfe.id ? "active-detail" : ""}
+                <tr
+                  className={
+                    detailShow && activePfe?.id === pfe.id
+                      ? "active-detail"
+                      : ""
+                  }
                   key={index}
-                  onDoubleClick={() => {
+                  onClick={() => {
                     setDetailShow(true);
                     setActivePfe(pfe);
                     console.log(dataTheme);
                   }}
-                  
                 >
                   <td>{index + 1}</td>
-                  <td>{pfe.intitule_pfe || 'N/A'}</td>
+                  <td>{pfe.intitule_pfe || "N/A"}</td>
                   <td>{pfe.description}</td>
                   <td>{pfe.option}</td>
                   <td>{pfe.type_pfe}</td>
                   <td>{pfe.est_valider}</td>
+                  <td id="modif">
+                    
+                      <Link to={`${detailUrl}${pfe.id}`}> <FaEdit /> </Link>
+              
+                  </td>
                 </tr>
               ))}
           </tbody>
         </table>
       </div>
 
-
-
-   {/* Section des détails */}
-   {detailShow && activePfe && (
+      {/* Section des détails */}
+      {detailShow && activePfe && (
         <div className="section-detail">
           <div>
-          <h2>Détails du Projet</h2>
-          <Link to={`${window.location.pathname}/detail?id=${activePfe?.id }`}>Voir Plus</Link>
+            <h1>Détails du Projet</h1>
+            <Link to={`${window.location.pathname}/detail?id=${activePfe?.id}`}>
+              Voir Plus
+            </Link>
           </div>
-          <form>
-            <label>Description</label>
-            <textarea className="description-area" rows="4" value={activePfe.description} readOnly />
-            <label>Type</label>
-            <input type="text" value={activePfe.type_pfe} readOnly />
-            <label>Option</label>
-            <input type="text" value={activePfe.option} readOnly  />
-            <label>Date Soutenance</label>
-            <input type="text" value={activePfe.date_soutenance || 'pas de date...' } readOnly />
-          </form>
+        
+           <div className="group-form">
+           <label>Description</label>
+            <textarea
+              className="description-area"
+              rows="4"
+              value={activePfe.description}
+              readOnly
+            />
+           </div>
+           <div className="group-form">
+           <label>Type</label>
+           <input type="text" value={activePfe.type_pfe} readOnly />
+           </div>
+           <div className="group-form">
+           <label>Option</label>
+           <input type="text" value={activePfe.option} readOnly />
+           </div>
+           <div className="group-form">
+           <label>Date Soutenance</label>
+            <input
+              type="text"
+              value={activePfe.date_soutenance || "pas de date..."}
+              readOnly
+            />
+           </div>
+           
+           
+         
+         
         </div>
       )}
 
       {/* Section pour les graphiques */}
-      <div style={{ display: "flex", justifyContent: "space-between", gap: "20px", alignItems: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "20px",
+          alignItems: "center",
+        }}
+      >
         <div style={{ flex: 1, textAlign: "center" }}>
           <h2>Pourcentage de PFE Validés</h2>
           <div
@@ -184,8 +222,6 @@ function GestionValidationPfe() {
           </PieChart>
         </div>
       </div>
-
-   
     </div>
   );
 }

@@ -19,9 +19,10 @@ table{
     border-collapse: collapse;
 }
 table tr.active-detail {
-    background-color: #c3c3c3 !important; /* Utilisez !important si nécessaire */
+    background-color: #1abc9c !important; /* Utilisez !important si nécessaire */
+    color: white;
     font-weight: bold;
-    border-left: 4px solid #4CAF50;
+   /* border-left: 4px solid #4CAF50;*/
     transition: background-color 0.3s ease;
   }
   
@@ -29,9 +30,31 @@ table tr.active-detail {
     background-color: #e6f7ff; /* Couleur plus claire au survol */
   }
 
+  
+  .section-pfe table tr #modif  {
+     text-align: center;
+}
+
+
+  .section-pfe table tr td a {
+    width: 100%;
+    display: inline-block;
+    color: black;
+    text-decoration: none; 
+    padding: 5px;
+    background-color: #1abc9c;
+    border-radius: 5px;
+  }
+
+  
+  .section-pfe table tr td a:hover {
+    color: white;
+    background-color: #2c3e50;
+  }
+
 
 .section-detail{
-
+    
     color: white;
     margin-top: 20px;
     padding:20px ;
@@ -42,6 +65,26 @@ table tr.active-detail {
 
    display: flex;
    justify-content: space-between;
+
 }
 
+.section-detail div h1{
+ 
+}
+
+
+.group-form{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.group-form label{
+font-size: medium;
+}
+
+.group-form input,textarea{
+width: 50%;
+
+}
 
