@@ -45,7 +45,7 @@ return new class extends Migration
             $table->id();
             $table->string('grade');
             $table->date('date_recrutement');
-            $table->string('est_responsable_de')->unique();
+            $table->string('est_responsable_de')->unique()->nullable();
             $table->foreignId('utilisateur_pfe_id')
                   ->constrained('utilisateurs_pfe')
                   ->onDelete('cascade'); // Lier la clé étrangère à l'id de utilisateurs_pfe
@@ -87,29 +87,34 @@ return new class extends Migration
             $table->string('type_pfe');
             $table->string('description');
             $table->string('option');
-            $table->string('note');
-            $table->date('date_soutenance');
+            $table->double('note')->nullable();
+            $table->date('date_soutenance')->nullable();
             $table->boolean('est_valider')->default(false);
+         
            
             $table->foreignId('enseignant_responsable_id')
-                  ->constrained('enseignant'); // Lier la clé étrangère à l'id de enseignant
-            
+            ->nullable()  // La clé étrangère est nullable
+            ->constrained('enseignant');
+      
             $table->foreignId('encadrant_id')
-                  ->constrained('enseignant');
-           
-                  
+            ->nullable()  // La clé étrangère est nullable
+            ->constrained('enseignant');
+       
             $table->foreignId('etudiant_1_id')
-                  ->constrained('etudiant'); // Lier la clé étrangère à l'id de enseignant
-            
+            ->nullable()  // La clé étrangère est nullable
+            ->constrained('etudiant');
+      
             $table->foreignId('etudiant_2_id')
-                  ->constrained('etudiant');    
-                  
-          
+            ->nullable()  // La clé étrangère est nullable
+            ->constrained('etudiant');
+      
             $table->foreignId('salle_soutenance_id')
-                  ->constrained('salle_soutenance'); // Lier la clé étrangère à l'id de enseignant
-            
+            ->nullable()  // La clé étrangère est nullable
+            ->constrained('salle_soutenance');
+      
             $table->foreignId('contact_entreprise_id')
-                  ->constrained('contact_entreprise');        
+            ->nullable()  // La clé étrangère est nullable
+            ->constrained('contact_entreprise');    
  
             $table->timestamps();
         });
@@ -127,6 +132,7 @@ return new class extends Migration
                   ->constrained('etudiant');
 
             $table->foreignId('etudiant_2_id')
+                  ->nullable()
                   ->constrained('etudiant');
 
             $table->timestamps();
@@ -193,22 +199,15 @@ return new class extends Migration
             $table->id();
             $table->string('type_email');
             $table->string('contenue');
-            $table->foreignId('utilisateur_pfe_id')
-                  ->constrained('utilisateurs_pfe')
-                  ->onDelete('cascade'); // Lier la clé étrangère à l'id de utilisateurs_pfe
-
             $table->timestamps();
         });
         
         Schema::create('formulaire_pfe_template', function (Blueprint $table) {
             $table->id();
+            $table->string('nom_formulaire');
             $table->string('type_formulaire');
             $table->date('date_ouverture');
             $table->date('date_cloture');
-            $table->foreignId('utilisateur_pfe_id')
-                  ->constrained('utilisateurs_pfe')
-                  ->onDelete('cascade'); // Lier la clé étrangère à l'id de utilisateurs_pfe
-
             $table->timestamps();
         });
 
@@ -217,7 +216,7 @@ return new class extends Migration
         Schema::create('option_master', function (Blueprint $table) {
             $table->id();
             $table->string('intitule_option');
-            $table->foreignId('enseignant_responsable_id')
+            $table->foreignId('enseignant_responsable_id') //l'enseignant responsable est obligatoire !!
                   ->constrained('enseignant')
                   ->onDelete('cascade'); // Lier la clé étrangère à l'id de enseignant
 
