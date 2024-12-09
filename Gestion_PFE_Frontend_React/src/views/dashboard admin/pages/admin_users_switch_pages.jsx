@@ -4,10 +4,15 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useState} from 'react';
+import { useSearchParams } from "react-router-dom";
+
 
 function AddUserForm() {
-    const [formData, setFormData] = useState({ nom: '', prenom: '',intitule_option_master1:'',moyenne_m1:'', email: '' ,type_utilisateur : ''});
+    const [searchParams] = useSearchParams();
+    const parametre = searchParams.get("type-email"); 
+
+    const [formData, setFormData] = useState({ nom: '', prenom: '',intitule_option_master1:'',mot_de_passe : '',moyenne_m1:'', email: '' ,type_utilisateur : ''});
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,6 +33,13 @@ function AddUserForm() {
 
             if (response.ok) {
                 alert('User added successfully');
+                document.getElementsByName('nom')[0].value = '';
+                document.getElementsByName('prenom')[0].value = '';
+                document.getElementsByName('email')[0].value = '';
+                document.getElementsByName('intitule_option_master1')[0].value = '';
+                document.getElementsByName('moyenne_m1')[0].value = '';
+                document.getElementsByName('mot_de_passe')[0].value = '';
+                document.getElementsByName('type_utilisateur')[0].value = '';
             } else {
                 const errorData = await response.json();
                 alert(`Error: ${JSON.stringify(errorData)}`);
@@ -39,15 +51,20 @@ function AddUserForm() {
     };
 
     return (
+      <div>
+         <h1>{parametre}</h1>
         <form onSubmit={handleSubmit}>
             <input type="text" name="nom" placeholder="Nom" onChange={handleChange} required />
             <input type="text" name="prenom" placeholder="prenom" onChange={handleChange} required />
             <input type="text" name="intitule_option_master1" placeholder="intitule_option_master1" onChange={handleChange} required />
             <input type="text" name="moyenne_m1" placeholder="moyenne_m1" onChange={handleChange} required />
             <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+            <input type="password" name="mot_de_passe" placeholder="mot_de_passe" onChange={handleChange} required />
             <input type="text" name="type_utilisateur" placeholder="type_utilisateur" onChange={handleChange} required />
             <button type="submit">Add User</button>
         </form>
+        </div>
+
     );
 }
 

@@ -54,10 +54,14 @@ const ProposalList = ({ proposals, removeProposal, setEditingIndex, setFormVisib
                                     >
                                         Edit
                                     </Button>
-                                    <Button
+                                   <Button
                                         variant="contained"
                                         style={{ backgroundColor: '#e74c3c', color: 'white' }}
-                                        onClick={() => removeProposal(index)}
+                                        onClick={() => {
+                                            if (window.confirm("Are you sure you want to delete this proposal?")) {
+                                                removeProposal(index);
+                                            }
+                                        }}
                                     >
                                         Delete
                                     </Button>

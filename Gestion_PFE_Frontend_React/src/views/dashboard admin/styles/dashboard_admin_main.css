@@ -1,7 +1,7 @@
 
 .dashboard {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .logo{
@@ -12,11 +12,13 @@
 
 .sidebar {
   width: 15%;
-  min-width: 10%;
+  min-width: 200px;
+  min-height: fit-content;
+  height: 100vh;
   background-color: #2c3e50;
   color: #fff;
   padding-top: 20px;
-
+ 
 }
 
 .sidebar h3 { /* ici a la place du h3 mettre un logo */
@@ -61,19 +63,25 @@
 
 .content {
   flex-grow: 1;
-  max-width: 85%;/*85%*/
+  max-width: 85%;
   height: 100vh;
   flex-direction: column;
   display: flex;
   background-color: #ffffff;
   justify-content: flex-start;
   align-items: center; 
+  overflow: auto;
  /*overflow: scroll;*/
 }
 
 
 
-/*ici le style pour la AppBar */
+/* ici le style pour la AppBar */  
+
+/*
+  ?voir si je met la app bar que dans acceuil 
+*/
+
 .appBar{
   width: 100%;
   padding: 18px 10px 15px 10px;
@@ -108,11 +116,11 @@ padding: 18px 0px 15px 10px;
  }
 
  .search-button{ 
-  background-color: #1abc9c; /* Couleur de fond du bouton */
-  border-radius: 0 5px 5px 0; /* Bord arrondi à droite */
-  border: none; /* Retire la bordure par défaut */
-  padding: 0 15px; /* Ajoute un peu de padding pour rendre le bouton plus large */
-  cursor: pointer; /* Ajoute un curseur de pointer */
+  background-color: #1abc9c;
+  border-radius: 0 5px 5px 0; 
+  border: none;
+  padding: 0 15px; 
+  cursor: pointer; 
   height: 2.5em; 
  }
  .search-button:hover{ 
@@ -122,8 +130,7 @@ padding: 18px 0px 15px 10px;
   margin: 0;
   height: 2.5em;
   width: 40%;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-radius: 5px 0px 0px 5px;
   border: none;
   caret-color: #1abc9c;
   padding-left: 10px; 
@@ -143,6 +150,4 @@ input::placeholder {
   color: #888;
   
 }
-
-
 

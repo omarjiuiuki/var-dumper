@@ -1,9 +1,20 @@
 import { useState } from 'react';
 import { FaBell, FaSearch, FaPlus } from 'react-icons/fa'; // Import the plus icon
 import './dashboard_entreprise_main.css';
-import PageGestionUtilisateur from '../../gestion_des_utilisateurs';
+
 import ProjectProposalList from './ProjectProposalList'; // Ensure the path is correct
 import ProjectProposalForm from './ProjectProposalForm'; // Ensure the path is correct
+
+import PageGestionUtilisateur from '../dashboard admin/pages/gestion_des_utilisateurs';
+
+/* 
+  *
+  *
+  *   NB :  c'est la main page ne pas toucher s'il vous plait !!!
+  *
+  *
+  *
+*/
 
 function DashboardEnterpriseMain() {
   const [activePage, setActivePage] = useState("Accueil");
