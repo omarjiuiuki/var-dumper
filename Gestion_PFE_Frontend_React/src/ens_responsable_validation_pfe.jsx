@@ -1,12 +1,318 @@
 
+
+
+import React, { useState, useEffect } from "react";
+import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { Link } from "react-router-dom";
+import './ens_responsable_validation_pfe.css';
+import UseFetchThemePfe from "./data/theme_pfe_data";
+import { FaEdit, FaPenAlt } from "react-icons/fa";
+
+function GestionValidationPfe() {
+  const [mesPfe, setMesPfe] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState("tous");
+  const [detailShow, setDetailShow] = useState(false);
+  const [activePfe, setActivePfe] = useState(null);
+  const [color, setColor] = useState("");
+
+  const { dataTheme , loading} = UseFetchThemePfe();
+  const detailUrl = `${window.location.pathname}/detail?id=`;
+  // Fonction pour récupérer les données des PFE
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getPfeData();
+      setMesPfe(data);
+    };
+    fetchData();
+  }, []);
+
+  // Mise à jour de la couleur en fonction du pourcentage des PFE validés
+  useEffect(() => {
+    const percentage = calculatePercentageValid();
+    setColor(getPercentageColor(percentage));
+  }, [dataTheme]);
+
+  const handleStatus = (status) => setSelectedStatus(status);
+
+  const calculatePercentageValid = () => {
+    const validCount = dataTheme.filter((pfe) => pfe.est_valider === "valide").length;
+    return ((validCount / dataTheme.length) * 100).toFixed(2);
+  };
+
+  const getPercentageColor = (percentage) => {
+    if (percentage < 30) return "red";
+    if (percentage < 70) return "orange";
+    return "green";
+  };
+
+ const typeResp='GL';
+
+
+
+
+
+
+
+
+
+
+  return (
+    <div className="section-pfe">
+      {/* Section pour sélectionner le statut */}
+      <div className="section-pfe-status">
+        <h1>Gestion des Validations de PFE</h1>
+        <div
+          className="section-pfe-tableau"
+          style={{ display: "flex", gap: "10px" }}
+        >
+          {["tous", "valide", "en_attente", "refuse"].map((status) => (
+            <button key={status} onClick={() => handleStatus(status)}>
+              {status.charAt(0).toUpperCase() + status.slice(1)}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Section du tableau */}
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th>Intitulé</th>
+              <th>Description</th>
+              <th>Option</th>
+              <th>Type PFE</th>
+              <th>Status</th>
+              
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dataTheme
+              .filter((pfe) => {
+                return (
+                  selectedStatus === "tous" ||
+                  pfe.est_valider === selectedStatus
+                );
+              })
+              .map((pfe, index) => (
+                <tr
+                  className={
+                    detailShow && activePfe?.id === pfe.id
+                      ? "active-detail"
+                      : ""
+                  }
+                  key={index}
+                  onClick={() => {
+                    setDetailShow(true);
+                    setActivePfe(pfe);
+                    console.log(dataTheme);
+                  }}
+                >
+                  <td>{index + 1}</td>
+                  <td>{pfe.intitule_pfe || "N/A"}</td>
+                  <td>{pfe.description}</td>
+                  <td>{pfe.option}</td>
+                  <td>{pfe.type_pfe}</td>
+                  <td>{pfe.est_valider}</td>
+                  <td id="modif">
+                    
+                      <Link to={`${detailUrl}${pfe.id}`}> <FaEdit /> </Link>
+              
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Section des détails */}
+      {detailShow && activePfe && (
+        <div className="section-detail">
+          <div>
+            <h1>Détails du Projet</h1>
+            <Link to={`${window.location.pathname}/detail?id=${activePfe?.id}`}>
+              Voir Plus
+            </Link>
+          </div>
+        
+           <div className="group-form">
+           <label>Description</label>
+            <textarea
+              className="description-area"
+              rows="4"
+              value={activePfe.description}
+              readOnly
+            />
+           </div>
+           <div className="group-form">
+           <label>Type</label>
+           <input type="text" value={activePfe.type_pfe} readOnly />
+           </div>
+           <div className="group-form">
+           <label>Option</label>
+           <input type="text" value={activePfe.option} readOnly />
+           </div>
+           <div className="group-form">
+           <label>Date Soutenance</label>
+            <input
+              type="text"
+              value={activePfe.date_soutenance || "pas de date..."}
+              readOnly
+            />
+           </div>
+           
+           
+         
+         
+        </div>
+      )}
+
+      {/* Section pour les graphiques */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "20px",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ flex: 1, textAlign: "center" }}>
+          <h2>Pourcentage de PFE Validés</h2>
+          <div
+            style={{
+              width: "150px",
+              height: "150px",
+              borderRadius: "50%",
+              backgroundColor: color,
+              color: "#fff",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "24px",
+              fontWeight: "bold",
+              margin: "0 auto",
+            }}
+          >
+            {calculatePercentageValid()}%
+          </div>
+        </div>
+
+        <div style={{ flex: 2 }}>
+          <PieChart width={400} height={300}>
+            <Pie
+              data={getChartData(mesPfe)}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={100}
+              fill="#8884d8"
+            >
+              {getChartData(mesPfe).map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={["#0088FE", "#FFBB28", "#FF8042"][index % 3]}
+                />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Fonction pour simuler les données des PFE
+const getPfeData = async () => [
+  { id: 1, intitul_projet: "Gestion de PFE", description: "Projet 1", option: "GL", type_projet: "Classique", date_soutenance: "2025-06-13", status: "valide" },
+  { id: 2, intitul_projet: "Système d'IA", description: "Projet 2", option: "IA", type_projet: "Innovant", date_soutenance: "2025-06-15", status: "en attente" },
+  { id: 3, intitul_projet: "Blockchain", description: "Projet 3", option: "SI", type_projet: "Recherche", date_soutenance: "2025-06-20", status: "refuse" },
+  { id: 4, intitul_projet: "Gestion de PFE", description: "Projet 1", option: "GL", type_projet: "Classique", date_soutenance: "2025-06-13", status: "valide" },
+  { id: 5, intitul_projet: "Système d'IA", description: "Projet 2", option: "IA", type_projet: "Innovant", date_soutenance: "2025-06-15", status: "en attente" },
+  { id: 6, intitul_projet: "Blockchain", description: "Projet 3", option: "SI", type_projet: "Recherche", date_soutenance: "2025-06-20", status: "refuse" },
+  { id: 7, intitul_projet: "Gestion de PFE", description: "Projet 1", option: "GL", type_projet: "Classique", date_soutenance: "2025-06-13", status: "valide" },
+  { id: 8, intitul_projet: "Système d'IA", description: "Projet 2", option: "IA", type_projet: "Innovant", date_soutenance: "2025-06-15", status: "en attente" },
+  { id: 9, intitul_projet: "Blockchain", description: "Projet 3", option: "SI", type_projet: "Recherche", date_soutenance: "2025-06-20", status: "refuse" },
+
+  { id: 10, intitul_projet: "Gestion de PFE", description: "Projet 1", option: "GL", type_projet: "Classique", date_soutenance: "2025-06-13", status: "valide" },
+  { id: 11, intitul_projet: "Système d'IA", description: "Projet 2", option: "IA", type_projet: "Innovant", date_soutenance: "2025-06-15", status: "en attente" },
+  { id: 12, intitul_projet: "Blockchain", description: "Projet 3", option: "SI", type_projet: "Recherche", date_soutenance: "2025-06-20", status: "refuse" },
+  { id: 13, intitul_projet: "Gestion de PFE", description: "Projet 1", option: "GL", type_projet: "Classique", date_soutenance: "2025-06-13", status: "valide" },
+  { id: 14, intitul_projet: "Système d'IA", description: "Projet 2", option: "IA", type_projet: "Innovant", date_soutenance: "2025-06-15", status: "en attente" },
+  { id: 15, intitul_projet: "Blockchain", description: "Projet 3", option: "SI", type_projet: "Recherche", date_soutenance: "2025-06-20", status: "refuse" },
+
+];
+
+const getChartData = (mesPfe) => [
+  { name: "Validé", value: mesPfe.filter((pfe) => pfe.status === "valide").length },
+  { name: "En attente", value: mesPfe.filter((pfe) => pfe.status === "en attente").length },
+  { name: "Refusé", value: mesPfe.filter((pfe) => pfe.status === "refuse").length },
+];
+
+export default GestionValidationPfe;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 import React, { useState ,useEffect} from "react";
-import '../styles/gestion_pfe.css';
-import CircularProgress from "../../../components/circle_progression_bar";
+import CircularProgress from "../src/components/circle_progression_bar";
 
-import MyPieChart from '../../../components/diagramme_secteur';
+import MyPieChart from '../src/components/diagramme_secteur';
 
-function GestionPFE(){
+function GestionValidationPfe(){
 
 
 
@@ -180,29 +486,6 @@ const data = [
 ];
 
 const COLORS = ['#0088FE', '#FFBB28', '#FF8042'];
-/*
-const MyPieChart = () => (
-  <PieChart width={400} height={400}>
-    <Pie
-      data={data}
-      dataKey="value"
-      nameKey="name"
-      cx="50%"
-      cy="50%"
-      outerRadius={150}
-      fill="#8884d8"
-      label
-    >
-      {data.map((entry, index) => (
-        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-      ))}
-    </Pie>
-    <Tooltip />
-    <Legend />
-  </PieChart>
-);
-
-*/
 
 
 
@@ -276,7 +559,11 @@ return (
           <header className={detailShow ? "head-gestion-pfe-visible" : "head-gestion-pfe"}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h1>Détails</h1>
-              <button>Enregistrer</button>
+             <div>
+             <button>valider</button>
+             &nbsp;&nbsp;&nbsp;&nbsp;
+             <button>Enregistrer</button>
+             </div>
             </div>
             <div className="head-gestion-action-pfe">
               <div className="">
@@ -307,7 +594,7 @@ return (
 
               <div>
                 <h2 style={{ paddingBottom: "15px" }}>Détails Encadrant </h2>
-                {/* // ! mettre les deux dans le meme forme ou voir autre solution  */}
+                {/* // ! mettre les deux dans le meme forme ou voir autre solution  *//*}
                 <form action="">
                   <label>Encadrant</label>
                   <input type="text" />
@@ -377,4 +664,4 @@ return (
 
 }
 
-export default GestionPFE;
+export default GestionValidationPfe;*/

@@ -1,16 +1,19 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import DashboardAdminMain from './dashboard_admin_main.jsx'
-import DashboardEnseignantMain from './views/dashboard enseignant/dashboard_enseignant_main.jsx'
-import DashboardEnterpriseMain from './views/dashboard entreprise/dashboard_entreprise_main.jsx'
-import DashboardEtudiantMain from './views/dashboard etudiant/dashboard_etudiant_main.jsx'
+
+
+import DashboardAdminMain from './views/dashboard admin/pages/dashboard_admin_main.jsx'
+import Login from './views/Login pages/Login.jsx';
+import MyApp from './my_app.jsx';
+import { BrowserRouter as Router } from "react-router-dom";
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <DashboardEtudiantMain />
-  </StrictMode>
+    <Login/>
+  </StrictMode>,
 );
 
 
+reportWebVitals();

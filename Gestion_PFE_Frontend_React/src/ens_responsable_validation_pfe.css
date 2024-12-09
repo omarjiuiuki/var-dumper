@@ -1,0 +1,90 @@
+
+.section-pfe{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+.section-pfe-status{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+table tr.active-detail {
+    background-color: #1abc9c !important; /* Utilisez !important si nécessaire */
+    color: white;
+    font-weight: bold;
+   /* border-left: 4px solid #4CAF50;*/
+    transition: background-color 0.3s ease;
+  }
+  
+  .active-detail:hover {
+    background-color: #e6f7ff; /* Couleur plus claire au survol */
+  }
+
+  
+  .section-pfe table tr #modif  {
+     text-align: center;
+}
+
+
+  .section-pfe table tr td a {
+    width: 100%;
+    display: inline-block;
+    color: black;
+    text-decoration: none; 
+    padding: 5px;
+    background-color: #1abc9c;
+    border-radius: 5px;
+  }
+
+  
+  .section-pfe table tr td a:hover {
+    color: white;
+    background-color: #2c3e50;
+  }
+
+
+.section-detail{
+    
+    color: white;
+    margin-top: 20px;
+    padding:20px ;
+    background-color:#2c3e50 ;
+    border-radius: 5px;
+}
+.section-detail div{
+
+   display: flex;
+   justify-content: space-between;
+
+}
+
+.section-detail div h1{
+ 
+}
+
+
+.group-form{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.group-form label{
+font-size: medium;
+}
+
+.group-form input,textarea{
+width: 50%;
+
+}
+

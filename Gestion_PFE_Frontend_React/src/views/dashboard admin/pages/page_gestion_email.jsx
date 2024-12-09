@@ -53,13 +53,13 @@ function PageGestionEmail (){
           {isSelected2 ? (
             <ul>
               <li>
-                <Link to={`${window.location.pathname}/ajouter?type-email=proposition-pfe`}>Email de proposition PFE</Link>
+                <Link to={`${window.location.pathname}/configuration?type-email=proposition-pfe`}>Email de proposition PFE</Link>
               </li>
               <li>
-              <Link to={`${window.location.pathname}/ajouter?type-email=proposition-encadrement`}>Email de proposition Encadrement</Link>
+              <Link to={`${window.location.pathname}/configuration?type-email=proposition-encadrement`}>Email de proposition Encadrement</Link>
               </li>
               <li>
-              <Link to={`${window.location.pathname}/ajouter?type-email=proposition-stage`}>Email de proposition Stage</Link>
+              <Link to={`${window.location.pathname}/configuration?type-email=proposition-stage`}>Email de proposition Stage</Link>
               </li>
             </ul>
           ) : null}

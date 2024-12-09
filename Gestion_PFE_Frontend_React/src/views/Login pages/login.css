@@ -1,0 +1,200 @@
+#root{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+}
+
+
+.container-login-page {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 400px;
+    width: 30%;
+    padding: 20px;
+    margin-top: 50px;
+    background-color: #2c3e50; /* Couleur élégante */
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Ombre subtile */
+    transition: 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .container-login-page:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); /* Ombre accentuée au survol */
+  }
+  
+  .container-login-page h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Ligne décorative */
+  }
+  
+  .container-login-page p {
+    padding: 10px;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8); /* Couleur subtile */
+    text-align: center;
+  }
+  
+  .container-input {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .container-input div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .container-input label {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .email-input,
+  .pwd-input {
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    background-color: #3d566e;
+    color: white;
+    outline: none;
+    transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+  
+  .email-input:hover,
+  .pwd-input:hover {
+    border-color: #1abc9c; /* Couleur pour l'état actif */
+    background-color: #2c3e50;
+  }
+
+  .email-input:focus,
+  .pwd-input:focus {
+    border-color: #1abc9c; /* Couleur pour l'état actif */
+    background-color: #2c3e50;
+  }
+  
+  .se-souvenir {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .se-souvenir div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .se-souvenir label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .se-souvenir button {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #1abc9c;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .se-souvenir button:hover {
+    color: #16a085;
+  }
+  
+  .connection-boutton-container button {
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #1abc9c;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  
+  .connection-boutton-container button:hover {
+    background-color: #16a085;
+    transform: scale(1.05);
+  }
+  
+  /* Styles pour écrans de moins de 600px */
+  @media (max-width: 600px) {
+    .container-login-page {
+      height: auto;
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Ombre plus légère */
+    }
+  
+    .container-login-page h1 {
+      font-size: 1.8rem;
+    }
+  
+    .container-login-page p {
+      font-size: 1rem;
+    }
+  }
+  
+
+
+/*
+.container-login-page{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 400px;
+    width: 30%;
+    padding: 20px;
+    background-color: #344a5f;
+     border-radius: 20px;
+     transition: transform 0.3s ease-in-out;
+}
+
+
+.container-login-page:hover{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 400px;
+    width: 30%;
+    padding: 20px;
+    background-color: #344a5f;
+     border-radius: 20px;
+     transform: scale(1.06);
+ 
+}
+
+.container-login-page h1{
+   padding: 10px;
+}
+
+
+.container-login-page p{
+    padding: 10px;
+ }
+
+ .container-input{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+ }*/

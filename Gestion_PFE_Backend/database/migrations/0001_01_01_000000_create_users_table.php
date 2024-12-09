@@ -38,6 +38,188 @@ return new class extends Migration
             $table->timestamps();
         });
 
+
+        Schema::create('enseignant', function (Blueprint $table) {
+            $table->id();
+            $table->string('grade');
+            $table->date('date_recrutement');
+            $table->string('est_responsable_de')->unique()->nullable();
+            $table->foreignId('utilisateur_pfe_id')
+                  ->constrained('utilisateurs_pfe')
+                  ->onDelete('cascade'); // Lier la clé étrangère à l'id de utilisateurs_pfe
+
+            $table->timestamps();
+        });
+
+
+        Schema::create('contact_entreprise', function (Blueprint $table) {
+            $table->id();
+            $table->string('denomination_entreprise');
+            $table->foreignId('utilisateur_pfe_id')
+                  ->constrained('utilisateurs_pfe')
+                  ->onDelete('cascade'); // Lier la clé étrangère à l'id de utilisateurs_pfe
+
+            $table->timestamps();
+        });
+
+
+        
+      
+          
+       
+       
+       
+
+
+
+        Schema::create('salle_soutenance', function (Blueprint $table) {
+            $table->id();
+            $table->string('intitule_salle');
+            $table->string('position_salle');
+            $table->timestamps();
+        });
+
+        Schema::create('theme_pfe', function (Blueprint $table) {
+            $table->id();
+            $table->string('intitule_pfe');
+            $table->string('type_pfe');
+            $table->string('description');
+            $table->string('option');
+            $table->double('note')->nullable();
+            $table->date('date_soutenance')->nullable();
+            $table->boolean('est_valider')->default(false);
+         
+           
+            $table->foreignId('enseignant_responsable_id')
+            ->nullable()  // La clé étrangère est nullable
+            ->constrained('enseignant');
+      
+            $table->foreignId('encadrant_id')
+            ->nullable()  // La clé étrangère est nullable
+            ->constrained('enseignant');
+       
+            $table->foreignId('etudiant_1_id')
+            ->nullable()  // La clé étrangère est nullable
+            ->constrained('etudiant');
+      
+            $table->foreignId('etudiant_2_id')
+            ->nullable()  // La clé étrangère est nullable
+            ->constrained('etudiant');
+      
+            $table->foreignId('salle_soutenance_id')
+            ->nullable()  // La clé étrangère est nullable
+            ->constrained('salle_soutenance');
+      
+            $table->foreignId('contact_entreprise_id')
+            ->nullable()  // La clé étrangère est nullable
+            ->constrained('contact_entreprise');    
+ 
+            $table->timestamps();
+        });
+          
+  
+
+
+        Schema::create('choix_pfe', function (Blueprint $table) {
+            $table->id();
+           
+            $table->foreignId('theme_pfe_id')
+                  ->constrained('theme_pfe');
+            
+            $table->foreignId('etudiant_1_id')
+                  ->constrained('etudiant');
+
+            $table->foreignId('etudiant_2_id')
+                  ->nullable()
+                  ->constrained('etudiant');
+
+            $table->timestamps();
+        });  
+     
+     
+     
+        Schema::create('choix_jury_pfe', function (Blueprint $table) {
+            $table->id();
+           
+            $table->foreignId('theme_pfe_id')
+                  ->constrained('theme_pfe');
+            
+            $table->foreignId('enseignant_id')
+                  ->constrained('enseignant');
+
+            $table->timestamps();
+        });  
+
+
+        Schema::create('co_encadrant', function (Blueprint $table) {
+            $table->id();
+           
+            $table->foreignId('theme_pfe_id')
+                  ->constrained('theme_pfe');
+            
+            $table->foreignId('enseignant_id')
+                  ->constrained('enseignant');
+
+            $table->timestamps();
+        });  
+
+       
+        Schema::create('presidant', function (Blueprint $table) {
+            $table->id();
+           
+            $table->foreignId('theme_pfe_id')
+                  ->constrained('theme_pfe');
+            
+            $table->foreignId('enseignant_id')
+                  ->constrained('enseignant');
+
+            $table->timestamps();
+        }); 
+
+
+        Schema::create('examinateur', function (Blueprint $table) {
+            $table->id();
+           
+            $table->foreignId('theme_pfe_id')
+                  ->constrained('theme_pfe');
+            
+            $table->foreignId('enseignant_id')
+                  ->constrained('enseignant');
+
+            $table->timestamps();
+        }); 
+
+
+
+
+
+        Schema::create('email_pfe_template', function (Blueprint $table) {
+            $table->id();
+            $table->string('type_email');
+            $table->string('contenue');
+            $table->timestamps();
+        });
+        
+        Schema::create('formulaire_pfe_template', function (Blueprint $table) {
+            $table->id();
+            $table->string('nom_formulaire');
+            $table->string('type_formulaire');
+            $table->date('date_ouverture');
+            $table->date('date_cloture');
+            $table->timestamps();
+        });
+
+
+
+        Schema::create('option_master', function (Blueprint $table) {
+            $table->id();
+            $table->string('intitule_option');
+            $table->foreignId('enseignant_responsable_id') //l'enseignant responsable est obligatoire !!
+                  ->constrained('enseignant')
+                  ->onDelete('cascade'); // Lier la clé étrangère à l'id de enseignant
+
+            $table->timestamps();
+        });
           
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

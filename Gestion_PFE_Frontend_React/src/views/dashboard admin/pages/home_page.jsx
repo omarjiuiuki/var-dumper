@@ -4,7 +4,7 @@ import { useState,useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 
-
+import '../styles/home_page.css';
 
 import { ClipLoader } from 'react-spinners';
 import { FaBell, FaSearch } from 'react-icons/fa';

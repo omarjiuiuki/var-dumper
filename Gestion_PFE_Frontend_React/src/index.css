@@ -1,9 +1,5 @@
 
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 
 
 * {
@@ -17,10 +13,21 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow-y: hidden; /* Empêche le scrolling vertical */
 }
 
 #root{
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+}
+
+a {
+  color: white;
+  text-decoration: none; /* Supprime le soulignement si nécessaire */
+}
+
+a:hover {
+  color: white; /* Changer la couleur au survol */
 }
 
 button {
@@ -40,7 +47,226 @@ button:hover {
 
 
 /*
+input{
+  margin: 0;
+  height: 2.5em;
+  width: 40%;
+  border-radius: 5px;
+ 
+  border: 1px solid #2c3e50;
+  caret-color: #1abc9c;
+  padding-left: 10px; 
+  
+  }
+ input:hover{
+  background-color: #ececec;
+ }
+ input:focus{
+   border: none;
+  outline: none;
+  box-shadow: 0 0 0 2px #1abc9c;
+ }
+
+
+
+input::placeholder {
+  color: #888;
+  
+}
+*/
+
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espacement entre les champs */
+}
+
+ input {
+   
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+input:hover{
+  background-color: #ececec;
+ }
+
+ input:focus {
+  border-color: #15af90; /* Vert pour le focus */
+  outline: none;
+  box-shadow: 0 0 5px #15af9080;
+}
+
+ textarea:focus {
+  border-color: #15af90; /* Vert pour le focus */
+ outline: none;
+  box-shadow: 0 0 5px #15af9080;
+}
+
+
+ textarea {
+  width: 100%;
+ /* height: 250px; */
+  max-height: 300px;
+  min-height: 100px; 
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  font-size: 14px;
+  overflow-y: auto; /* Ajoute une barre de défilement verticale si nécessaire */
+  word-wrap: break-word; /* Permet de couper les mots longs pour qu'ils n'éclatent pas le champ */
+  resize: vertical; /* Permet le redimensionnement vertical */
+  
+}
+
+
+textarea:hover {
+  background-color: #ececec;
+}
+ 
+
+
+
+
+
+
+
+
+/* pour le modal  style */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 80%;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.modal-body  {
+  font-size: 1rem;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-btn {
+  padding: 10px 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+}
+
+.confirm-btn {
+  background-color: #28a745;
+  color: white;
+}
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Styles pour la barre de scrolle pour plus de style pour les page !! */
+
+
+/* Styles pour la barre de défilement */
+::-webkit-scrollbar {
+  width: 4px; /* largeur de la barre verticale */
+  height: 10px; /* hauteur de la barre horizontale */
+}
+::-webkit-scrollbar:focus{
+  width: 10px; /* largeur de la barre verticale */
+}
+
+
+
+/* Couleur de l'arrière-plan de la barre */
+::-webkit-scrollbar-track {
+  background: #f0f0f0; 
+  border-radius: 10px;
+}
+
+/* Couleur de la glissière (scroll thumb) */
+::-webkit-scrollbar-thumb {
+  background: #1abc9c;
+/*  border-radius: 10px;*/
+}
+
+/* Couleur de la glissière lors du survol */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;  
+}
+
+
+
+
+/*
+
 :root {
+
+ 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
