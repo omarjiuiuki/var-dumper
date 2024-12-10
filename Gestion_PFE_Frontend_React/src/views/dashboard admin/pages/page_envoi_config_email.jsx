@@ -51,6 +51,18 @@ function EvoieConfigEmail(){
     };
 
 
+    const convertFromHTML = (textHTML) => {
+      // Remplacer <br> par des retours à la ligne (\n)
+      textHTML = textHTML.replace(/<br>/g, "\n");
+    
+      // Remplacer &nbsp; par des espaces
+      textHTML = textHTML.replace(/&nbsp;/g, " ");
+    
+      return textHTML;
+    };
+    
+
+
     useEffect(() => {
       // Load initial email content if it exists
       if (dataEmail?.[1]?.email?.contenue) {
@@ -70,8 +82,6 @@ function EvoieConfigEmail(){
 
   return (
     <>
-    
-
       <div className="page-email">
         <div className="head-envoi-email">
           <div className="template-area">
@@ -113,7 +123,7 @@ function EvoieConfigEmail(){
         </div>
 
         <div className="content-envoi-email">
-          <div className="container-head">
+          {/* <div className="container-head">
             <label>Envoyer à </label>
             <select
               value={selectedMembre}
@@ -129,8 +139,9 @@ function EvoieConfigEmail(){
               })}
             </select>
           </div>
+          */}
 
-          <div className="info-date">
+          {/*  <div className="info-date">
             <div>
               <label>Date Début </label>
               <input type="date" />
@@ -141,72 +152,60 @@ function EvoieConfigEmail(){
               <input type="date" />
             </div>
           </div>
-          
-         
+          */}
+
           <div className="container-email-modif">
-      <h1>Éditeur d'email</h1>
-      <textarea
-        className="email-area"
-        value={emailContent} // Affiche le contenu brut
-        onChange={handleChange} // Met à jour le contenu
-      
-      ></textarea>
-      <h2>Affichage formaté :</h2>
-      <div
-        className="formatted-content"
-        dangerouslySetInnerHTML={{ __html: convertToHTML(emailContent) }} // Interprète les balises HTML puis le stocker avec le html
-        style={{
-          border: "1px solid #ccc",
-          padding: "10px",
-          borderRadius: "5px",
-          marginTop: "10px",
-        }}
-      ></div>
-    </div>
-        
+            <h1>Éditeur d'email</h1>
+            <textarea
+              className="email-area"
+              value={convertFromHTML(emailContent)} // Affiche le contenu brut
+              onChange={handleChange} // Met à jour le contenu
+            ></textarea>
+          
+           {/* <h2>Affichage formaté :</h2>
+            <div
+              className="formatted-content"
+              dangerouslySetInnerHTML={{ __html: convertToHTML(emailContent) }} // Interprète les balises HTML puis le stocker avec le html
+              style={{
+                border: "1px solid #ccc",
+                padding: "10px",
+                borderRadius: "5px",
+                marginTop: "10px",
+              }}
+            ></div>
+            */}
+            <button>Envoyer</button>
+          </div>
 
+          
 
-           
-           <button>Envoyer</button>
+         {/* <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Type email</th>
+                  <th>Contenue</th>
+                </tr>
+              </thead>
 
+              {dataEmail.map((entry, index) => {
+                const contenue = entry.email.contenue;
+                return (
+                  <tbody>
+                    <tr key={index}>
+                      <td>{entry.email.type_email} </td>
+                      <td>{contenue}</td>
+                    </tr>
+                  </tbody>
+                );
+              })}
+            </table>
+          </div>
 
-
-     
-           <div>
-     
-     
-     <table>
-           <thead>
-             <tr>
-             <th>Type email</th>
-             <th>Contenue</th>
-             </tr>
-           </thead>
-         
-       {dataEmail.map((entry, index) => {
-         const contenue = entry.email.contenue;
-                  return (
-            <tbody>
-               <tr key={index} >
-                 <td>{entry.email.type_email} </td>
-                 <td>{contenue}</td>               
-               </tr>
-         </tbody>
-         );
-       })}
-       </table>
-     </div>
-     
-
+            */}
 
         </div>
-
-
-
-
-   
       </div>
-      
     </>
   );
 

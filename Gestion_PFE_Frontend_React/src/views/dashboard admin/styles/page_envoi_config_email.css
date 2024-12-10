@@ -1,5 +1,17 @@
 /* Container for the list of email templates */
+
+.page-email{
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+
 .head-envoi-email {
+  height: 10%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -44,15 +56,6 @@
   
 
 
-.page-email{
-  overflow: auto;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-}
 
 
   /* Styling for the content section */
@@ -61,12 +64,12 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    background-color: #d4d4d4; /* Light background for content */
+    background-color: #eaeaea; /* Light background for content */
     padding: 30px;
-    width: 95%;
-    border-radius: 2px;
+    width: 100%;
+    height: 90%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    margin-bottom: 20px;
+   
   }
   
 .content-envoi-email .textarea-email{
@@ -95,8 +98,88 @@
   }
   
 
-.container-email-modif{
 
-  width: 700px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Style général pour le conteneur */
+.container-email-modif {
+  width: 800px;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+ 
 }
 
+/* Titre principal */
+.container-email-modif h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #000000;
+  text-align: center;
+}
+
+/* Zone de texte pour l'édition de l'email */
+.email-area {
+  width: 100%;
+  height: 200px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.email-area:focus {
+  border-color: #15af90;
+  box-shadow: 0 0 5px #00866c;
+}
+
+/* Titre secondaire pour l'affichage formaté */
+.container-email-modif h2 {
+  font-size: 20px;
+  margin-top: 20px;
+  color: #000000;
+}
+
+/* Contenu formaté */
+.formatted-content {
+  max-height: 300px;
+  background-color: #fff;
+  font-size: 16px;
+  color: #1b1b1b;
+  word-wrap: break-word;
+  overflow: auto;
+}
+
+/* Ajout de style pour un rendu agréable dans la vue formatée */
+.formatted-content p {
+  margin: 0 0 10px;
+}
+
+.formatted-content a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.formatted-content a:hover {
+  text-decoration: underline;
+}
