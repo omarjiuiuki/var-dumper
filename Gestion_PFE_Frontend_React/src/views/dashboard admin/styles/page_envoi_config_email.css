@@ -25,7 +25,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
+    display: inline-block;
     /*gap: 15px; /* Space between list items */
   }
   
@@ -64,7 +64,7 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    background-color: #eaeaea; /* Light background for content */
+    background-color: #f3f3f3; /* Light background for content */
     padding: 30px;
     width: 100%;
     height: 90%;
@@ -97,21 +97,6 @@
     }
   }
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -183,3 +168,56 @@
 .formatted-content a:hover {
   text-decoration: underline;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*!NOUVEAU STYLE*/
+
+
+
+
+
+
+
+.page-email-main{
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+
+.cards-container {
+  position: relative;
+width: 100%;
+min-height: fit-content;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+justify-items: center; 
+align-items: center;
+gap: 20px;
+padding: 20px;
+background-color: #f8f9fa;
+}
+
+.modifier-template{
+  background-color: #007bff;
+}
+
+
+
+
