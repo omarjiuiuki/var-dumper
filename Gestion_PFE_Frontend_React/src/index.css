@@ -209,7 +209,7 @@ textarea:hover {
   justify-content: space-between;
   align-items: flex-start;
   padding: 20px;
-  background: #ffffff; /* Couleur de fond par défaut */
+  background: #e9efff;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
   width: 300px;
@@ -244,7 +244,10 @@ textarea:hover {
 
 /* Styles lorsque la carte est active */
 #my-card-container.active-template {
-  background: linear-gradient(65deg, #00604d, #15af90); /* Fond dégradé */
+ /* background: linear-gradient(65deg, #2c3e50, #3b5a79); best */
+  background: linear-gradient(65deg, #15af90, #2c3e50);
+  /*background: linear-gradient(65deg, #2c3e50, #1abc9c);*/
+/*  background: linear-gradient(65deg, #00604d, #15af90); */
   color: #fcfcfc; /* Texte en couleur claire lorsque la carte est active */
 }
 

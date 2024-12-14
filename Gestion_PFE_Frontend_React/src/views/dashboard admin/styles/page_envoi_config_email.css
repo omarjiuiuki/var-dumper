@@ -192,13 +192,36 @@
 .page-email-main{
   position: relative;
   width: 100%;
-  min-height: 100%;
+  height: 100vh; /* Important pour que les enfants héritent de la hauteur */
+  overflow: hidden;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
+}
+.page-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem; /* Taille de police */
+  font-weight: bold; /* Mettre en gras */
+  color: #ffffff; /* Texte en blanc pour contraster avec le dégradé */
+  text-align: center; /* Centré sur la page */
+  padding: 10px 0;
+  margin-bottom: 20px;
+ 
+  text-transform: uppercase; /* Mettre le texte en majuscule */
+  letter-spacing: 2px; /* Espacement entre les lettres */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Légère ombre portée */
+  background: linear-gradient(90deg, #15af90, #2c3e50); /* Dégradé personnalisé */
+  
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
 }
 
+.page-title:hover {
+  transform: translateY(-5px); /* Effet d'élévation au survol */
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); /* Accentuation de l'ombre */
+}
 
 
 .cards-container {
@@ -211,13 +234,116 @@ justify-items: center;
 align-items: center;
 gap: 20px;
 padding: 20px;
-background-color: #f8f9fa;
+background-color: #ffffff;
 }
 
-.modifier-template{
-  background-color: #007bff;
+
+.container-emails-left-min{
+  width: 100%;
+  min-width: 30%;
+  height: 100%;
+  overflow-y: auto;
+}
+.container-emails-left-max{
+  width: 100%;
+  height: 100%;
+  
+  overflow-y: auto;
 }
 
+
+
+
+
+.modifier-template-right-max {
+  position: relative;
+  width: clamp(500px, 75%, 100%); /* Entre 500px (min) et 75% (max) */
+  height: 100%; /* Hauteur limitée à la fenêtre */
+  background-color: #f3f3f3;
+  box-shadow: -5px 0 5px #e4e4e4;
+  padding-left: 10px;
+  padding-bottom: 20px;
+  z-index: 1;
+  opacity: 1; /* Complètement visible */
+  transition: width 0.5s ease, opacity 1s ease;
+  overflow-y: auto; /* Active le défilement vertical */
+  overflow-x: auto; /* Désactive le défilement horizontal */
+}
+
+
+.modifier-template-right-max input {
+  margin: 10px;
+  margin-bottom: 20px;
+  width: 80%;
+}
+
+
+.modifier-template-right-min {
+  width: 0; /* Caché à l'état initial */
+  min-height: 100%;
+  opacity: 0; /* Transparent */
+  overflow: hidden; /* Évite les débordements */
+  background-color: #ededed;
+  transition: width 0.5s ease, opacity 0.5s ease;
+}
+
+
+
+#arrow-close {
+  padding: 0;
+  background-color: #15af90; /* Couleur de fond */
+  border: none;
+  border-radius: 50%; /* Forme ronde */
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+#arrow-close:hover {
+  transform: scale(1.1); /* Légère mise en avant au survol */
+}
+
+#arrow-close:active {
+  transform: scale(0.9); /* Réduction à l'appui */
+}
+
+
+.modifier-template-right-max .auto-expand {
+  resize: none; /* Empêche le redimensionnement manuel */
+   width: 90%;
+  margin: 10px;
+}
+
+
+
+.email-area {
+  max-width: 90%;
+  height: 200px;
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.email-area:focus {
+  border-color: #15af90;
+  box-shadow: 0 0 5px #00866c;
+}
+
+#action-area{
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
 
 
 

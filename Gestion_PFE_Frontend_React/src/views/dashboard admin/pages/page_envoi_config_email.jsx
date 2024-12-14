@@ -1,13 +1,16 @@
 
 
 import React, { useState, useEffect } from 'react';
+
+import { MdOutlineEmail, MdArrowForwardIos, MdOutlineArrowDropDown } from 'react-icons/md';
 import MyCardTemplate from '../../../components/card_template';
 import '../styles/page_envoi_config_email.css';
 const EvoieConfigEmail = () => {
     const [emails, setEmails] = useState([]); // Liste des e-mails
     const [selectedEmail, setSelectedEmail] = useState(null); // E-mail sélectionné pour modification
     const [updatedContent, setUpdatedContent] = useState(""); // Contenu mis à jour
-
+    const [updatedNom, setUpdatedNom] = useState("");
+    const [updatedDescription, setUpdatedDescription] = useState("");
     // Fonction pour récupérer les e-mails
     const fetchEmails = async () => {
         try {
@@ -26,9 +29,12 @@ const EvoieConfigEmail = () => {
 
     // Fonction pour sélectionner un e-mail
     const handleSelectEmail = (email) => {
+       
         setSelectedEmail(email);
         setUpdatedContent(email.contenue); // Pré-remplit le formulaire avec le contenu existant
-    };
+        setUpdatedNom(email.nom_email);
+        setUpdatedDescription(email.description_email);
+      };
 
     // Fonction pour enregistrer les modifications
     const handleSave = async () => {
@@ -37,6 +43,8 @@ const EvoieConfigEmail = () => {
         const updatedEmail = {
             id: selectedEmail.id,
             contenue: updatedContent,
+            nom_email: updatedNom,
+            description_email: updatedDescription,
         };
 
         try {
@@ -60,46 +68,104 @@ const EvoieConfigEmail = () => {
         }
     };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
       <>
         <div className="page-email-main">
-          <h1>Gestion des e-mails</h1>
-
-          <div className="cards-container">
-            {emails.map((email) => {
-              console.log(selectedEmail?.id === email.id); // Affiche dans la console si l'email est sélectionné
-              return (
-                <MyCardTemplate
-                  key={email.id}
-                  titre={email.nom_email}
-                  description={email.description_email}
-                  onClick={() => handleSelectEmail(email)} // La fonction qui gère la sélection
-                  isSelected={selectedEmail?.id  === email.id} // Passer un prop pour indiquer si cet email est sélectionné
-                />
-              );
-            })}
-             <MyCardTemplate titre={'titre card'}  description={'contenue card'}/>
-             <MyCardTemplate titre={'titre card'}  description={'contenue card'}/>
-             <MyCardTemplate titre={'titre card'}  description={'contenue card'}/>
-             <MyCardTemplate titre={'titre card'}  description={'contenue card'}/>
-            
+          <div
+            className={
+              selectedEmail
+                ? "container-emails-left-min"
+                : "container-emails-left-max"
+            }
+          >
+            <div>
+              <h1 className="page-title">
+                <MdOutlineEmail style={{ marginRight: "10px" }} /> Gestion des
+                Templates
+              </h1>
+            </div>
+            <div className="cards-container">
+              {emails.map((email) => {
+                console.log(selectedEmail?.id === email.id); // Affiche dans la console si l'email est sélectionné
+                return (
+                  <MyCardTemplate
+                    key={email.id}
+                    titre={email.nom_email}
+                    description={email.description_email}
+                    onClick={() => handleSelectEmail(email)} // La fonction qui gère la sélection
+                    isSelected={selectedEmail?.id === email.id} // Passer un prop pour indiquer si cet email est sélectionné
+                  />
+                );
+              })}
+            </div>
           </div>
 
-
           {/* Formulaire de modification */}
-          {selectedEmail && (
-            <div className='modifier-template'>
-              <h2>Modifier l'e-mail</h2>
+          {selectedEmail ? (
+            <div className="modifier-template-right-max">
+              <button id="arrow-close" onClick={() => setSelectedEmail(null)}>
+                <MdArrowForwardIos />
+              </button>
+              <h2>Modifier le template</h2>
+
+              <p>Nom Template :</p>
+              <input
+                type="text"
+                value={updatedNom || "Chargement..."}
+                onChange={(e) => setUpdatedNom(e.target.value)}
+              />
+
+              <p>Description :</p>
               <textarea
-                value={updatedContent}
+                className="auto-expand"
+                rows={1} // Hauteur initiale : 1 ligne
+                maxLength={150} // Limite du nombre total de caractères (optionnel)
+                value={updatedDescription || "Chargement..."}
+                onChange={(e) => setUpdatedDescription(e.target.value)}
+              />
+
+              <p>Contenue :</p>
+              <textarea
+                className="email-area"
+                value={updatedContent || "Chargement..."}
                 onChange={(e) => setUpdatedContent(e.target.value)}
                 rows={5}
                 style={{ width: "100%" }}
               ></textarea>
               <br />
-              <button onClick={handleSave}>Enregistrer</button>
-              <button onClick={() => setSelectedEmail(null)}>Annuler</button>
+              <div id="action-area">
+                <button onClick={() => setSelectedEmail(null)}>Annuler</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {selectedEmail.contenue !== updatedContent ||
+                selectedEmail.nom_email !== updatedNom ||
+                selectedEmail.description_email !== updatedDescription ? (
+                  <button onClick={handleSave}>Enregistrer</button>
+                ) : (
+                  <button
+                  style={{ pointerEvents: "none", opacity: 0.5 }}
+                    disabled
+                  >
+                    Enregistrer
+                  </button>
+                )}
+              </div>
             </div>
+          ) : (
+            <div className="modifier-template-right-min"></div>
           )}
         </div>
       </>
