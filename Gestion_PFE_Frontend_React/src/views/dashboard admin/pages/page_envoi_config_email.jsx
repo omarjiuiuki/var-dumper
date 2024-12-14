@@ -130,7 +130,7 @@ const EvoieConfigEmail = () => {
               />
 
               <p>Description :</p>
-              <textarea
+              <textarea 
                 className="auto-expand"
                 rows={1} // Hauteur initiale : 1 ligne
                 maxLength={150} // Limite du nombre total de caractères (optionnel)
