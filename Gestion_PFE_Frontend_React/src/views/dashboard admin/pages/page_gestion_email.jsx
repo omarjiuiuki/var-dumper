@@ -11,38 +11,39 @@ function PageGestionEmail (){
   const [isSelected,setSelected]=useState(false);
   const [isSelected2,setSelected2]=useState(false);
 
+
+
+
+
+
+
+
+  const calculatePercentPfeStatus = () => {
+    const validCount = dataTheme.filter((pfe) => pfe.est_valider === "valide").length;
+    return ((validCount / dataTheme.length) * 100).toFixed(2);
+  };
+
+  const getPercentageColor = (percentage) => {
+    if (percentage < 30) return "red";
+    if (percentage < 70) return "orange";
+    return "green";
+  };
+
+
+
+
+
+
   return (
     <div className="gestion-email">
       <header className="header-email-page">
-        <div
-          className="email-type-template"
-          onClick={() => {
-              setSelected(true);
-            }}
-          onMouseLeave={() => {
-            setSelected(false);
-          }} >
-          Email Template
-          {isSelected ? (
-            <ul>
-              <li>
-                <Link to={''}>appel a proposition</Link>
-              
-              </li>
-              <li>
-              <Link to={''}>appel a encadrement</Link>
-               
-              </li>
-              <li>
-              <Link to={''}>appel a proposition de stage</Link>
-          
-              </li>
-            </ul>
-          ) : null}
+       
+        <div  className="email-type-template" >
+             <Link to={`${window.location.pathname}/configuration?type-email=proposition-encadrement`}> Email Template</Link>
         </div>
 
-        <div
-          className="email-type-control"
+        {/*<div
+          className="email-template-configue"
           onClick={() => {
               setSelected2(true);
             }}
@@ -53,7 +54,7 @@ function PageGestionEmail (){
           {isSelected2 ? (
             <ul>
               <li>
-                <Link to={`${window.location.pathname}/configuration?type-email=proposition-pfe`}>Email de proposition PFE</Link>
+               { //!pour les parametre dans l'url      <Link to={`${window.location.pathname}/configuration?type-email=proposition-pfe`}>Email de proposition PFE</Link>}
               </li>
               <li>
               <Link to={`${window.location.pathname}/configuration?type-email=proposition-encadrement`}>Email de proposition Encadrement</Link>
@@ -64,24 +65,25 @@ function PageGestionEmail (){
             </ul>
           ) : null}
         </div>
+        */}
 
 
       </header>
 
       <div className="header-email">
-        <div>
-          <CircularProgress percentage={35} color={"red"} />
-          <p>Proposition PFE soumise</p>
-        </div>
-        <div>
-          <CircularProgress percentage={65} color={"orange"} />
-          <p>Proposition encadrement soumise</p>
-        </div>
-        <div>
-          <CircularProgress percentage={100} color={"green"} />
-          <p>Proposition soumise</p>
-        </div>
+      <div className="progress-item">
+        <CircularProgress percentage={65} color="red" />
+        <p>Proposition PFE soumise</p>
       </div>
+      <div className="progress-item">
+        <CircularProgress percentage={25} color="orange" />
+        <p>Proposition encadrement soumise</p>
+      </div>
+      <div className="progress-item">
+        <CircularProgress percentage={100} color="green" />
+        <p>Proposition soumise</p>
+      </div>
+    </div>
 
       <main className="email-main-part">
         <div className="non-proposition">
