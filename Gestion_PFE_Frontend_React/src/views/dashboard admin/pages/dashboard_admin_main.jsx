@@ -55,6 +55,13 @@ function DashboardAdminMain() {
     { name: "Login", path: "/login", component: <Login/> },
     { name: "Ajouter Utilisateurs", path: "/ajouter-utilisateurs", component: <AddUserForm/> },
     { name: "Responsable", path: "/gestion-pfes-validation", component: <GestionValidationPfe/> },
+
+  
+    { name: "Login", path: "/login", component: <Login/> },
+    { name: "Ajouter Utilisateurs", path: "/ajouter-utilisateurs", component: <AddUserForm/> },
+    { name: "Responsable", path: "/gestion-pfes-validation", component: <GestionValidationPfe/> },
+
+  
    
   ];
 
@@ -78,11 +85,13 @@ function DashboardAdminMain() {
              
             </div>
 
-            <PageList
+           <div className="side-bar-item-container">
+           <PageList
               pages={pages}
               activePage={activePage}
               setActivePage={setActivePage}
             />
+           </div>
 
         
           </nav>

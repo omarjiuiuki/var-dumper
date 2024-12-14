@@ -17,7 +17,8 @@ html, body {
 }
 
 #root{
-  font-family: Arial, Helvetica, sans-serif;
+ /* font-family: Arial, Helvetica, sans-serif;*/
+ font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: 13px;
 }
 
@@ -90,6 +91,7 @@ form {
   border: 1px solid #dcdcdc;
   border-radius: 5px;
   font-size: 14px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 input:hover{
@@ -110,6 +112,7 @@ input:hover{
 
 
  textarea {
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
   width: 100%;
  /* height: 250px; */
   max-height: 300px;
@@ -193,6 +196,96 @@ textarea:hover {
   color: white;
 }
   
+
+
+
+
+/*? style de MyCardTemplate */
+/* Conteneur et Styles principal de la carte */
+#my-card-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  background: #e9efff;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+  width: 300px;
+  min-height: 150px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.5s ease, color 0.5s ease; /* Transition sur fond et texte */
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Effet au survol de la carte */
+#my-card-container:hover {
+  transform: translateY(-10px); /* Décalage de la carte */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.08); /* Ombre plus marquée au survol */
+}
+
+/* Calque semi-transparent au survol de la carte */
+#my-card-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(21, 175, 144, 0); /* Calque transparent initial */
+  transition: background 0.3s ease; /* Transition fluide pour l'effet de calque */
+  z-index: 0;
+}
+
+#my-card-container:hover::after {
+  background: rgba(21, 175, 144, 0.374); /* Calque vert léger au survol */
+}
+
+/* Styles lorsque la carte est active */
+#my-card-container.active-template {
+ /* background: linear-gradient(65deg, #2c3e50, #3b5a79); best */
+  background: linear-gradient(65deg, #15af90, #2c3e50);
+  /*background: linear-gradient(65deg, #2c3e50, #1abc9c);*/
+/*  background: linear-gradient(65deg, #00604d, #15af90); */
+  color: #fcfcfc; /* Texte en couleur claire lorsque la carte est active */
+}
+
+/* Transition sur la couleur du texte lors de l'activation de la carte */
+#my-card-container.active-template .titre-container h1,
+#my-card-container.active-template .description-container p {
+  color: #fcfcfc; /* Couleur du texte claire */
+  transition: color 0.7s ease; /* Transition lente pour la couleur du texte */
+}
+
+/* Conteneur du contenu de la carte */
+.card-content {
+  position: relative;
+  z-index: 1; /* Assurer que le contenu soit au-dessus du calque */
+  width: 100%;
+  height: 100%;
+}
+
+/* Styles du titre de la carte */
+.titre-container h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333333; /* Couleur par défaut du titre */
+  margin: 0;
+  padding: 0;
+}
+
+/* Styles de la description de la carte */
+.description-container p {
+  font-size: 1rem;
+  color: #666666; /* Couleur par défaut de la description */
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+
+
+
 
 
 

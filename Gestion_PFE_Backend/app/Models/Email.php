@@ -14,12 +14,7 @@ class Email extends Model
        
         'type_email',
         'contenue',
-        'utilisateur_pfe_id',
     ];
 
-    public function utilisateurPfe()
-    {
-        return $this->belongsTo(User::class, 'utilisateur_pfe_id');
-    }
 
 }
