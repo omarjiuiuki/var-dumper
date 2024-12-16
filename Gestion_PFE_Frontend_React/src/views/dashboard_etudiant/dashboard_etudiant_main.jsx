@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+  import { useLocation } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { FaFileUpload, FaClipboardCheck, FaFolderOpen, FaGraduationCap, FaBell, FaSearch } from 'react-icons/fa';
+import { FaFileUpload, FaClipboardCheck, FaArrowRight, FaArrowLeft, FaBell, FaSearch } from 'react-icons/fa';
 import SoumettreProjet from './SoumettreProjet.jsx';
 import SoutenancesTable from './SoutenancesTable.jsx';
 import ChoisirUnProjet from './ChoisirUnProjet.jsx';
 import Login from './Login.jsx';
-
+import './dashboard_etudiant_main.css';
+import AfficherProjetChoisi from './AfficherProjetChoisi.jsx';
 
 const ProfileModal = ({ show, onClose }) => {
   const studentInfo = {
@@ -63,20 +65,72 @@ function DashboardEtudiantMain() {
 
   const pages = [
    
-    { name: "Accueil", path: "/", component: <h1>Accueil</h1> },
+    { name: "Accueil", path: "/", component:  
+    <>
+    <div className="appBar">
+      <form className='search-form' action="">
+        <input type="text" className='search' placeholder='Recherche...' />
+        <button type='submit' className='search-button'><FaSearch /></button>
+      </form>
+
+      <div className='account-notif-block'>
+        <button 
+          onClick={() => setShowProfile(true)}  
+          style={{
+            padding: '10px 20px',
+            fontSize: '16px',
+            backgroundColor: '#344a5f',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <img 
+            src="./images/photo-profil.jpg"
+            alt="Photo de profil" 
+            style={{
+              width: '30px',
+              height: '30px',
+              borderRadius: '50%',  
+              marginRight: '10px',
+            }}
+          />
+          AZ
+        </button>
+        <button onClick={() => { alert('Bonjour enseignant'); }}><FaBell size={17}/></button>
+      </div>
+    </div>
+
+    {/* Affichage de la modale de profil */}
+    <ProfileModal show={showProfile} onClose={() => setShowProfile(false)} />
+    </>
+},
    
-    { name: "Soumettre un projet", icon: <FaFileUpload />, path: "/soumettre-projet", component: <SoumettreProjet /> },
-    { name: 'Choisir un projet', icon: <FaClipboardCheck />, path: '/choisir-projet', component: <ChoisirUnProjet /> },
-    { name: 'Mes projets', icon: <FaFolderOpen />, path: '/mes-projets',component: <Login /> },
-    { name: 'Login', icon: <FaFolderOpen />, path: '/login',component: <Login /> },
-    { name: 'Soutenance', icon: <FaGraduationCap />, path: '/soutenance', component: <SoutenancesTable /> },
+    { name: "Soumettre un projet",  path: "/soumettre-projet", component: <SoumettreProjet /> },
+    { name: 'Choisir un projet', path: '/choisir-projet', component: <ChoisirUnProjet /> },
+    { name: 'Mes projets', path: '/mes-projets',component: <AfficherProjetChoisi /> },
+    { name: 'Login', path: '/login',component: <Login /> },
+    { name: 'Soutenance', path: '/soutenance', component: <SoutenancesTable /> },
     { name: "Emails et Notifications", path: "/emails-notifications", component: <h1>Emails et Notifications</h1> },
   ];
 
+
+
+  const [isSidebarVisible, setSidebarVisible] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
+  };
+
+
   return (
     <Router>
-      <div className="dashboard">
-        <nav className="sidebar">
+      <div className="dashboard-etu">
+      {isSidebarVisible ? (
+        <nav className="sidebar-etu">
           <div className='logo' style={{ display: 'flex', alignItems: 'center' }}>
             <img 
               src="./images/logo.png" 
@@ -84,71 +138,83 @@ function DashboardEtudiantMain() {
               style={{ width: '40px', height: '40px', marginRight: '10px' }} 
             />
           </div>
-          <ul>
-            {pages.map(({ name, path }) => (
-              <li
-                key={name}
-                onClick={() => setActivePage(name)}
-                className={activePage === name ? 'active-page' : ''}  
-              >
-                <Link to={path}>{name}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        
-        <div className="content" style={{ marginRight: showProfile ? '300px' : '0', transition: 'margin-right 0.3s' }}>
-          <div className="appBar">
-            <form className='search-form' action="">
-              <input type="text" className='search' placeholder='Recherche...' />
-              <button type='submit' className='search-button'><FaSearch /></button>
-            </form>
 
-            <div className='account-notif-block'>
-              <button 
-                onClick={() => setShowProfile(true)}  
-                style={{
-                  padding: '10px 20px',
-                  fontSize: '16px',
-                  backgroundColor: '#344a5f',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                <img 
-                  src="./images/photo-profil.jpg"
-                  alt="Photo de profil" 
-                  style={{
-                    width: '30px',
-                    height: '30px',
-                    borderRadius: '50%',  
-                    marginRight: '10px',
-                  }}
-                />
-                AZ
-              </button>
-              <button onClick={() => { alert('Bonjour enseignant'); }}><FaBell size={17}/></button>
-            </div>
+          <div className="side-bar-item-container-etu">
+           <PageList
+              pages={pages}
+              activePage={activePage}
+              setActivePage={setActivePage}
+            />
+           </div>
+        </nav>
+           ) : null}
+        
+        <div className='content-page-etu'>
+        {/* Bouton pour afficher/masquer la sidebar */}
+        <div className="drawer-container-etu">
+            <button
+              className="drawer-button-etu"
+              onClick={toggleSidebar}
+            >
+              {isSidebarVisible ? <FaArrowLeft /> : <FaArrowRight />}
+            </button>
           </div>
 
-          {/* Affichage de la modale de profil */}
-          <ProfileModal show={showProfile} onClose={() => setShowProfile(false)} />
+        <div className={`contenue-etu${isSidebarVisible ? "" : "-expanded"}`}>
+       
 
-          <Routes>
+    
+
+         <Routes>
             {pages.map(({ path, component }) => (
               <Route key={path} path={path} element={component} />
             ))}
+           
+            {/* 
+                ici on peut ajouter toute le routes que l'ont veut 
+                                
+              <Route path="/utilisateurs/ajouter" element={<AjouteUtilisateur />} /> 
+              */}
           </Routes>
         </div>
+
+    
+        </div> 
       </div>
     </Router>
   );
-}
 
+
+  
+    //fonction pour la localisation de la route active 
+    function PageList({ pages, activePage, setActivePage }) {
+      const location = useLocation();
+  
+      // Mettre à jour `activePage` lorsqu'on navigue en arrière ou en avant
+      useEffect(() => {
+        const currentPage = pages.find((page) => page.path === location.pathname);
+        if (currentPage) {
+          setActivePage(currentPage.name);
+        }
+      }, [location, pages, setActivePage]);
+  
+      return (
+        <ul>
+          {pages.map(({ name, path }) => (
+            <li key={name} className={activePage === name ? "active-page" : ""}>
+              <Link to={path} onClick={() => setActivePage(name)}>
+                {name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      );
+    }
+
+
+
+
+}
 export default DashboardEtudiantMain;
 
 

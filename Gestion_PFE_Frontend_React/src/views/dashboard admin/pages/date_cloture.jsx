@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { TextField, Button, Container, Typography, Box, Grid, Paper } from '@mui/material';
-
+import '../styles/date_cloture.css';
 const DateCloture = () => {
   const [dates, setDates] = useState({
     period1: '',
@@ -21,7 +21,82 @@ const DateCloture = () => {
     },
   });
 
+
   return (
+    <div className="container-gestion-cloture">
+    
+        <h1 className="titre-page">
+          Gestion Des Dates De Clôture
+        </h1>
+        <form onSubmit={formik.handleSubmit}>
+          <div className="container-date">
+          <div className="container-date-item">
+                <span className="text-base text-dark">Email de proposition de PFE:</span>
+                <input
+                  type="date"
+                  onChange={formik.handleChange}
+                />
+                <button
+                  type="button"
+                
+                 
+                >
+                  Sélectionner Date
+                </button>
+              </div>
+
+
+             {/* //! ici a la place de chaque periode mettre les different type de form et d'email  */}
+            {['period1', 'period2', 'period3'].map((period, index) => (
+              <div key={period} className="container-date-item">
+                <span className="text-base text-dark">Période {index + 1}:</span>
+                <input
+                  id={period}
+                  name={period}
+                  type="date"
+                  value={formik.values[period]}
+                  onChange={formik.handleChange}
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    formik.setFieldValue(period, new Date().toISOString().split('T')[0])
+                  }
+                 
+                >
+                  Sélectionner Date
+                </button>
+              </div>
+            ))}
+          </div>
+          <button
+            type="submit"
+           
+          >
+            Enregistrer
+          </button>
+        </form>
+  
+        {/* Affichage des dates actuelles */}
+        <div className="container-affichage-date">
+          <h2 className="sous-titre-date">Dates Actuelles</h2>
+          <p>
+            Période 1: {dates.period1 ? new Date(dates.period1).toLocaleDateString() : 'Non définie'}
+          </p>
+          <p >
+            Période 2: {dates.period2 ? new Date(dates.period2).toLocaleDateString() : 'Non définie'}
+          </p>
+          <p>
+            Période 3: {dates.period3 ? new Date(dates.period3).toLocaleDateString() : 'Non définie'}
+          </p>
+        </div>
+    
+    </div>
+  );
+  
+
+
+  /*return (
     <Container
       maxWidth="xl"
       sx={{
@@ -29,7 +104,7 @@ const DateCloture = () => {
         display: 'flex',
         alignItems: 'center', // Center vertically
         justifyContent: 'center', // Center horizontally
-        backgroundColor: '#2c3e50', // Dark background color
+       // backgroundColor: '#2c3e50', // Dark background color
       }}
     >
       <Paper
@@ -94,7 +169,7 @@ const DateCloture = () => {
           </Button>
         </form>
 
-        {/* Affichage des dates actuelles */}
+      
         <Box sx={{ mt: 4 }}>
           <Typography variant="h6" component="h2" gutterBottom color="#2c3e50">
             Dates Actuelles
@@ -111,7 +186,7 @@ const DateCloture = () => {
         </Box>
       </Paper>
     </Container>
-  );
+  );*/
 };
 
 export default DateCloture;

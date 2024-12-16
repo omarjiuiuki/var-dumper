@@ -13,26 +13,26 @@
 
 }
 
-h1 {
+.selection-projets h1 {
   font-size: 2.5em; /* Taille du titre principal */
   margin-bottom: 20px; /* Espacement en bas */
   text-align: center; /* Centrer le titre */
   font-weight: bold; /* Mettre le titre en gras */
 }
 
-h2 {
+.selection-projets h2 {
   font-size: 1.8em; /* Taille du sous-titre */
   margin-top: 20px; /* Espacement en haut */
   margin-bottom: 15px; /* Espacement en bas */
   color: #1abc9c; /* Couleur des sous-titres pour les faire ressortir */
 }
 
-ul {
+.selection-projets ul {
   list-style-type: none; /* Supprimer les puces */
   padding: 0; /* Supprimer le padding */
 }
 
-li {
+.selection-projets li {
   margin: 15px 0; /* Espacement entre les éléments de la liste */
   padding: 10px; /* Espacement intérieur pour chaque élément */
   border: 1px solid #ecf0f1; /* Bordure légère autour de chaque élément */
@@ -40,21 +40,21 @@ li {
   transition: background-color 0.3s; /* Transition pour le changement de couleur */
 }
 
-li:hover {
+.selection-projets li:hover {
   background-color: #f9f9f9; /* Changer le fond lors du survol */
 }
 
-label {
+.selection-projets label {
   cursor: pointer; /* Changer le curseur lorsque l'on survole le label */
   display: flex; /* Utiliser flex pour un meilleur alignement */
   align-items: center; /* Centrer verticalement les éléments */
 }
 
-input[type="checkbox"] {
+.selection-projets input[type="checkbox"] {
   margin-right: 10px; /* Espacement à droite du checkbox */
 }
 
-button {
+.selection-projets button {
   margin-top: 20px; /* Espacement en haut du bouton */
   padding: 12px 20px; /* Espacement intérieur */
   border: none; /* Supprimer la bordure */
@@ -67,12 +67,12 @@ button {
   transition: background-color 0.3s, transform 0.2s; /* Transition pour le changement de couleur et d'échelle */
 }
 
-button:hover {
+.selection-projets button:hover {
   background-color: #16a085; /* Couleur de fond lors du survol */
   transform: scale(1.05); /* Légère augmentation de la taille lors du survol */
 }
 
-button:focus {
+.selection-projets button:focus {
   outline: none; /* Supprimer le contour par défaut */
   box-shadow: 0 0 0 2px rgba(26, 188, 156, 0.5); /* Ombre pour le focus */
 } 

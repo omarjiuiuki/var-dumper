@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import './SoutenancesTable.css';
+
+
+
 
 const initialSoutenances = [
         {
@@ -171,95 +175,62 @@ const SoutenancesTable = () => {
     URL.revokeObjectURL(url);
   };
 
+ 
+ 
+ 
+ 
   return (
-    <div>
-        <div  style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '20px',
-        }}>
-      <h1 className="text-5xl font-bold text-center text-[#2c3e50] p-4 ">
-        Planning des Soutenances:
-      </h1>
+    <>
+      <div className="head-soutenance-etu">
+        <div className="head-page-soutenance-etu">
+          <h1>Planning des Soutenances:</h1>
 
-
-      
-  <button
-          onClick={handleDownload}
-          style={{
-            padding: '10px 20px',
-            fontSize: '16px',
-            backgroundColor: '#1abc9c',
-            color: 'white',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center', // Aligne l'icône et le texte horizontalement
-          }}
-        >
-          <i className="fas fa-download" style={{ marginRight: '8px' }}></i> {/* Icône de téléchargement */}
-          Télécharger
-        </button>
-</div>
-
-
-
-      <table
-        style={{
-          borderCollapse: 'collapse',
-          width: '100%',
-          fontSize: '16px',
-          padding: '20px',
-          marginTop: '10px',
-        }}
-      >
-        <thead>
-          <tr>
-            <th style={{ border: '1px solid black', padding: '12px', backgroundColor: '#34495e', color: 'white' }}>N°</th>
-            <th style={{ border: '1px solid black', padding: '12px', backgroundColor: '#34495e', color: 'white' }}>Groupe</th>
-            <th style={{ border: '1px solid black', padding: '12px', backgroundColor: '#34495e', color: 'white' }}>Sujet de la soutenance</th>
-            <th style={{ border: '1px solid black', padding: '12px', backgroundColor: '#34495e', color: 'white' }}>Salle</th>
-            <th style={{ border: '1px solid black', padding: '12px', backgroundColor: '#34495e', color: 'white' }}>Président</th>
-            <th style={{ border: '1px solid black', padding: '12px', backgroundColor: '#34495e', color: 'white' }}>Examinateur</th>
-            <th style={{ border: '1px solid black', padding: '12px', backgroundColor: '#34495e', color: 'white' }}>Encadrant(s)</th>
-            <th style={{ border: '1px solid black', padding: '12px', backgroundColor: '#34495e', color: 'white' }}>Date</th>
-            <th style={{ border: '1px solid black', padding: '12px', backgroundColor: '#34495e', color: 'white' }}>Heure de début</th>
-            <th style={{ border: '1px solid black', padding: '12px', backgroundColor: '#34495e', color: 'white' }}>Heure de fin</th>
-          </tr>
-        </thead>
-        <tbody>
-          {soutenances.map((soutenance, index) => (
-            <tr key={index}>
-              <td style={{ border: '1px solid black', padding: '10px', textAlign: 'center' }}>{index + 1}</td>
-              <td style={{ border: '1px solid black', padding: '10px' }}>{soutenance.groupe}</td>
-              
-              <td style={{ border: '1px solid black', padding: '10px' }}>
-  {soutenance.sujet}
-</td>
-
-              <td style={{ border: '1px solid black', padding: '10px' }}>{soutenance.salle}</td>
-              <td style={{ border: '1px solid black', padding: '10px' }}>
-  {soutenance.examinateur1}
-</td>
-
-              <td style={{ border: '1px solid black', padding: '10px' }}>
-  {soutenance.examinateur2 }
-</td>
-
-              <td style={{ border: '1px solid black', padding: '10px' }}>{soutenance.encadrants}</td>
-              <td style={{ border: '1px solid black', padding: '10px' }}>{soutenance.date}</td>
-              <td style={{ border: '1px solid black', padding: '10px' }}>{soutenance.heureDebut}</td>
-              <td style={{ border: '1px solid black', padding: '10px' }}>{soutenance.heureFin}</td>
+          <div className="action-button-etu">
+          <button onClick={handleDownload}>
+            <i className="fas fa-download"></i> {/* Icône de téléchargement */}
+            Télécharger
+          </button>
+          </div>
+        </div>
+        
+        <div className="soutenance-table-etu">
+        <table>
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th>Groupe</th>
+              <th>Sujet de la soutenance</th>
+              <th>Salle</th>
+              <th>Président</th>
+              <th>Examinateur</th>
+              <th>Encadrant(s)</th>
+              <th>Date</th>
+              <th>Heure de début</th>
+              <th>Heure de fin</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
-    
-    </div>
-);
+          </thead>
+          <tbody>
+            {soutenances.map((soutenance, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{soutenance.groupe}</td>
+                <td>{soutenance.sujet}</td>
+                <td>{soutenance.salle}</td>
+                <td>{soutenance.examinateur1}</td>
+                <td>{soutenance.examinateur2}</td>
+                <td>{soutenance.encadrants}</td>
+                <td>{soutenance.date}</td>
+                <td>{soutenance.heureDebut}</td>
+                <td>{soutenance.heureFin}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
+        
+      </div>
+    </>
+  );
 };
 
 export default SoutenancesTable;

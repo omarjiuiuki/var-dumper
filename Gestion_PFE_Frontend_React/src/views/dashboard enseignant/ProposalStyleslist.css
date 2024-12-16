@@ -1,8 +1,4 @@
 /* ProposalStyleslist.css */
-html, body {
-    height: 100%;
-    margin: 0; /* Remove default margin */
-}
 
 .fullscreen {
     height: 70vh; /* Full height of the viewport */

@@ -1,137 +1,186 @@
- .gestion-email{
-    height: 100%;
-    width: 100%;
- }
- 
+.gestion-email{
+   height: 100%;
+   width: 100%;
+}
 
- .header-email-page {
-   background-color: #ffffff;
+
+.header-email-page {
+  background-color: #ffffff;
+  display: flex;
+  align-items: flex-start;
+  justify-content: start;
+  flex-direction: column;
+
+}
+
+
+#title-area{
+  width: 100%;
+
+}
+
+.title-container{
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem; /* Taille de police */
+  font-weight: bold; /* Mettre en gras */
+  color: #ffffff; /* Texte en blanc pour contraster avec le dégradé */
+  text-align: center; /* Centré sur la page */
+  padding: 10px 0;
+  text-transform: uppercase; /* Mettre le texte en majuscule */
+  letter-spacing: 2px; /* Espacement entre les lettres */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Légère ombre portée */
+  background: linear-gradient(90deg, #15af90, #2c3e50); /* Dégradé personnalisé */
+  
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
+}
+
+.title-container:hover {
+  transform: translateY(-5px); /* Effet d'élévation au survol */
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.3); /* Accentuation de l'ombre */
+}
+
+
+
+
+
+.email-type-template{
+  background-color: #ffffff;
+
+
+  border-radius: 10px;
+  cursor: pointer;
+  
+}
+
+
+
+.email-type-template a  {
+  text-decoration: none;
+  background-color: #2c3e50;
+
+  color: #ffffff;
+  display: block; 
+  padding: 20px 25px; 
+  white-space: nowrap; 
+  border-radius: 10px;
+  margin: 5px;
+  box-sizing: border-box;
+}
+.email-type-template a:hover  {
+background-color: #375778;
+transition: background-color 0.7s ease;
+}
+
+/*
+.header-email-page div ul  {
+     width: auto;
+     position: absolute; 
+     top: 100%;
+     left: 0;
+     background: #fff;
+     border: 1px solid #ccc;
+     list-style: none;
+     padding-top: 10px;
+     padding-bottom: 10px;
+     margin: 0;
+     z-index: 9999; 
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .header-email-page div li  {
+  padding: 0;
+  margin: 0;
+  }
+
+  .header-email-page div a  {
+     text-decoration: none;
+     background-color: #2c3e50;
+     width: 100%;
+     color: #ffffff;
+     display: block; 
+     padding: 20px 25px; 
+     white-space: nowrap; 
+     border-radius: 10px;
+     margin: 5px;
+  
+  }
+  .header-email-page div a:hover  {
+   background-color: #375778;
+   transition: background-color 0.7s ease;
+  }
+*/
+/*
+.header-email{
    display: flex;
+   justify-content: space-evenly; 
+   align-items: center; 
+   width: 100%;
+
+   padding: 20px; 
+}
+.header-email div {
+   display: flex;
+   flex-direction: column; 
    align-items: center;
+   text-align: center; 
+   gap: 10px;
+   color: white;
+   padding: 10px;
+   background-color: #2c3e50;
+   border-radius: 10px;
+   width: 300px;
+}
+.header-email div:hover {
+  cursor: pointer; 
+}*/
 
- }
 
- .header-email-page div{
-   background-color: #cfcfcf;
-   position: relative;
-   margin-right: 5px;
-   width: fit-content;
- 
-   cursor: pointer;
-   
+
+
+
+
+
+/*==============================================================================*/
+
+.email-main-part{
+   width: 100%;
+   height: auto;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+  
 }
 
-
-.header-email-page div:hover{
- background-color: #b5b5b5;
- transition: background-color 0.5s ease;
+.non-proposition{
+   width: 60%;
+   min-width: 400px;
+   min-height: 300px;
+   background-color: #c6cbcf;
+   border-radius: 10px;
+   box-shadow:0px 5px 5px #2c3e50  ;
 }
-
-
- .header-email-page div ul  {
-      width: auto;
-      position: absolute; /* Le menu est absolument positionné*/
-      top: 100%;/*Juste en dessous du parent*/
-      left: 0;
-      background: #fff;
-      border: 1px solid #ccc;
-      list-style: none;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      margin: 0;
-      z-index: 9999; /*Assure qu'il est au premier plan*/
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);/*Ajoute un effet d'ombre*/ 
-   }
-   .header-email-page div li  {
-   padding: 0;
-   margin: 0;
-   }
-
-   .header-email-page div a  {
-      text-decoration: none;
-      background-color: #2c3e50;
-      width: 100%;
-      color: #ffffff;
-      display: block; 
-      padding: 20px 25px; 
-      white-space: nowrap; 
+.titre-section{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width:100%;
+   border-top-left-radius: 10px;
+   border-top-right-radius: 10px;
+   color: white;
+   padding: 10px;
+   background-color: #2c3e50;
    
-   }
-   .header-email-page div a:hover  {
-    background-color: #375778;
-    transition: background-color 0.7s ease;
-   }
+  
 
-
- .header-email{
-    display: flex;
-    justify-content: space-evenly; 
-    align-items: center; 
-    width: 100%;
-
-    padding: 20px; 
- }
- .header-email div {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    text-align: center; 
-    gap: 10px;
-    color: white;
-    padding: 10px;
-    background-color: #2c3e50;
-    border-radius: 10px;
-    width: 300px;
- }
- .header-email div:hover {
-   cursor: pointer; 
- }
-
-
-
-
-
-
-
- /*==============================================================================*/
-
- .email-main-part{
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: space-between;
-   /* background-color: #2c3e50;*/
-    padding: 20px;
- }
-
- .non-proposition{
-    width: 60%;
-    min-width: 400px;
-    min-height: 300px;
-    background-color: #c6cbcf;
-    border-radius: 10px;
-    box-shadow:0px 5px 5px #2c3e50  ;
- }
- .titre-section{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width:100%;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    color: white;
-    padding: 10px;
-    background-color: #2c3e50;
-    
-   
-
- }
- .contenue-section{
+}
+.contenue-section{
 color: none;
 }
 /*========================================================================================*/
 
 .email-template{
-    width: 40%;
-    margin-left: 20px;
+   width: 40%;
+   margin-left: 20px;
 }

@@ -3,8 +3,8 @@ import CircularProgress from "../../../components/circle_progression_bar";
 import '../styles/page_gestion_email.css';
 import UlNavigation from "../../../components/my_ul_navigation_list";
 import { Link } from "react-router-dom";
-
-
+import { MdOutlineEmail, MdArrowForwardIos, MdOutlineArrowDropDown } from 'react-icons/md';
+import DateCloture from "./date_cloture";
 
 function PageGestionEmail (){
 
@@ -37,11 +37,22 @@ function PageGestionEmail (){
   return (
     <div className="gestion-email">
       <header className="header-email-page">
-       
-        <div  className="email-type-template" >
-             <Link to={`${window.location.pathname}/configuration?type-email=proposition-encadrement`}> Email Template</Link>
+        <div id="title-area">
+          <h1 className="title-container">
+            <MdOutlineEmail style={{ marginRight: "10px" }} /> Gestion Des Emails  
+           
+          </h1>
+         
         </div>
-
+       
+        <div className="email-type-template">
+          <Link
+            to={`${window.location.pathname}/configuration?type-email=proposition-encadrement`}
+          >
+            {" "}
+            Email Template
+          </Link>
+        </div>
         {/*<div
           className="email-template-configue"
           onClick={() => {
@@ -66,26 +77,30 @@ function PageGestionEmail (){
           ) : null}
         </div>
         */}
-
-
       </header>
 
-      <div className="header-email">
-      <div className="progress-item">
-        <CircularProgress percentage={65} color="red" />
-        <p>Proposition PFE soumise</p>
-      </div>
-      <div className="progress-item">
-        <CircularProgress percentage={25} color="orange" />
-        <p>Proposition encadrement soumise</p>
-      </div>
-      <div className="progress-item">
-        <CircularProgress percentage={100} color="green" />
-        <p>Proposition soumise</p>
-      </div>
-    </div>
+     {/* <div className="header-email">
+        <div className="progress-item">
+          <CircularProgress percentage={65} color="red" />
+          <p>Proposition PFE soumise</p>
+        </div>
+        <div className="progress-item">
+          <CircularProgress percentage={25} color="orange" />
+          <p>Proposition encadrement soumise</p>
+        </div>
+        <div className="progress-item">
+          <CircularProgress percentage={100} color="green" />
+          <p>Proposition soumise</p>
+        </div>
+      </div>*/}
 
       <main className="email-main-part">
+
+        <div className="date-cloture">
+        <DateCloture />
+        </div>
+
+
         <div className="non-proposition">
           <div className="titre-section">
             Attente De Proposition :<button>voir plus</button>
