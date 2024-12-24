@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use HasFactory;
 
 class Etudiant extends Model
 {
-    // use HasFactory;
+   // use HasFactory;
 
     protected $table = 'etudiant'; // Assurez-vous que c'est le bon nom de table
 
