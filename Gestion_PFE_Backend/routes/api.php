@@ -24,3 +24,4 @@ Route::get('/affiche-etudiants', [EtudiantController::class, 'afficherEtudiant']
 Route::get('/email-template', [EmailController::class, 'getEmailTemplate']);
 Route::get('/theme_detail', [ThemePfeController::class, 'afficherThemePfe']);
 Route::put('/modif-email', [EmailController::class, 'modifierEmail']);
+Route::post('/projet', [ThemePfeController::class, 'store']);

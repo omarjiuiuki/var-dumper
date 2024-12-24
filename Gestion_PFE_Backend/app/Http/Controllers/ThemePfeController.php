@@ -83,4 +83,28 @@ class ThemePfeController extends Controller
 
 
 
+           public function store(Request $request)
+           {
+               $validatedData = $request->validate([
+                   'intitule_pfe' => 'required|string|max:255',
+                   'type_pfe' => 'required|string|max:50',
+                   'description' => 'required|string',
+                   'option' => 'required|string|max:50',
+                   //'note' => 'nullable|string|max:10',
+                   //'date_soutenance' => 'required|date',
+                   'etudiant_1_id' => 'required|exists:etudiant,id',
+                   'etudiant_2_id' => 'nullable|exists:etudiant,id', // Pour binôme facultatif
+               ]);
+           
+               // Insérer dans la table theme_pfe
+               $themePfe = \App\Models\ThemePfe::create($validatedData);
+           
+               return response()->json([
+                   'message' => 'Projet enregistré avec succès.',
+                   'theme_pfe' => $themePfe,
+               ], 201);
+           }
+           
+
+
 }

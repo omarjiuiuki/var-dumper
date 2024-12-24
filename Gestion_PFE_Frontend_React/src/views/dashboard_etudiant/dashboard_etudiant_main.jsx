@@ -10,6 +10,7 @@ import './dashboard_etudiant_main.css';
 import AfficherProjetChoisi from './AfficherProjetChoisi.jsx';
 
 const ProfileModal = ({ show, onClose }) => {
+  
   const studentInfo = {
     name: 'Amara Zenati Omar',
     email: 'omar@example.com',
@@ -60,6 +61,7 @@ const ProfileModal = ({ show, onClose }) => {
 };
 
 function DashboardEtudiantMain() {
+  const etudiantId = 1;
   const [activePage, setActivePage] = useState("Accueil");
   const [showProfile, setShowProfile] = useState(false);
 
@@ -110,8 +112,8 @@ function DashboardEtudiantMain() {
 },
    
     { name: "Soumettre un projet",  path: "/soumettre-projet", component: <SoumettreProjet /> },
-    { name: 'Choisir un projet', path: '/choisir-projet', component: <ChoisirUnProjet /> },
-    { name: 'Mes projets', path: '/mes-projets',component: <AfficherProjetChoisi /> },
+    { name: 'Choisir un projet', path: '/choisir-projet', component: <ChoisirUnProjet  etudiantId={etudiantId}/> },
+    { name: 'Mes projets', path: '/mes-projets',component: <AfficherProjetChoisi   etudiantId={etudiantId}/> },
     { name: 'Login', path: '/login',component: <Login /> },
     { name: 'Soutenance', path: '/soutenance', component: <SoutenancesTable /> },
     { name: "Emails et Notifications", path: "/emails-notifications", component: <h1>Emails et Notifications</h1> },
