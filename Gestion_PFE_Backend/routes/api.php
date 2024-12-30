@@ -7,6 +7,7 @@ use App\Http\Controllers\EtudiantController;
 
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ThemePfeController;
+use App\Http\Controllers\ChoixPFEController;
 
 
 Route::get('/user', function (Request $request) {
@@ -74,6 +75,64 @@ Route::get('/projects/{etudiant_id}', function ($etudiant_id) {
         'company_projects' => $projectsByCompanies,
     ]);
 });
+
+
+
+// Ajouter un choix
+Route::post('/choix-pfe', [ChoixPFEController::class, 'store']);
+
+// Modifier un choix
+Route::put('/choix-pfe/{id}', [ChoixPFEController::class, 'update']);
+
+// Supprimer un choix
+Route::delete('/choix-pfe/{id}', [ChoixPFEController::class, 'destroy']);
+
+Route::put('/choix-pfe/{oldProjectId}/replace', [ChoixPFEController::class, 'replace']);
+
+// Récupérer les projets sélectionnés par un étudiant
+Route::get('/choix-pfe/{etudiantId}', [ChoixPFEController::class, 'getSelectedProjects']);
+
+
+//recuperer les infos de etudiant 1
+
+//use App\Http\Controllers\EtudiantController;
+
+//Route::get('etudiant/{id}', [EtudiantController::class, 'getEtudiantDetails']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 Route::get('/projects/{etudiant_id}', function ($etudiant_id) {

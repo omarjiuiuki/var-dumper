@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\ThemePfe;
+use App\Models\Etudiant;
+use App\Models\UtilisateurPfe;
 
 class EtudiantController extends Controller
 {
@@ -23,4 +26,12 @@ class EtudiantController extends Controller
 
     return response()->json($etudiants);
     }
+
+
+
+/*
+
+*/
+
+
 }

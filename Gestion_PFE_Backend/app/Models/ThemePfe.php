@@ -61,7 +61,10 @@ public function encadrant()
     return $this->belongsTo(Enseignant::class, 'encadrant_id');
 }
 
-
+public function choixPfes()
+{
+    return $this->hasMany(ChoixPFE::class, 'theme_pfe_id');
+}
 
 
 }

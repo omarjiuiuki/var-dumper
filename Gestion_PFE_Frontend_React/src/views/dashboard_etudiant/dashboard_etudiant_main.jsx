@@ -111,7 +111,7 @@ function DashboardEtudiantMain() {
     </>
 },
    
-    { name: "Soumettre un projet",  path: "/soumettre-projet", component: <SoumettreProjet /> },
+    { name: "Soumettre un projet",  path: "/soumettre-projet", component: <SoumettreProjet etudiantId={etudiantId}/> },
     { name: 'Choisir un projet', path: '/choisir-projet', component: <ChoisirUnProjet  etudiantId={etudiantId}/> },
     { name: 'Mes projets', path: '/mes-projets',component: <AfficherProjetChoisi   etudiantId={etudiantId}/> },
     { name: 'Login', path: '/login',component: <Login /> },

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ThemePfe;
+use App\Models\Etudiant;
+
 class ThemePfeController extends Controller
 {
 
@@ -88,7 +90,7 @@ public function show($id)
 }
 
 
-
+/*
 public function getProjetByEtudiant($etudiantId)
 {
     // Recherche du projet de l'étudiant (etudiant_1_id ou etudiant_2_id)
@@ -105,6 +107,34 @@ public function getProjetByEtudiant($etudiantId)
     } else {
         return response()->json(['message' => 'Aucun projet trouvé pour cet étudiant.'], 404);
     }
+}
+*/
+
+
+public function getProjetByEtudiant($etudiantId)
+{
+    // Récupération des informations de l'étudiant et de son projet
+    $etudiant = Etudiant::with('themePfe')->find($etudiantId);
+
+    if (!$etudiant) {
+        return response()->json(['message' => 'Étudiant non trouvé'], 404);
+    }
+
+    // Récupération du thème PFE lié à cet étudiant
+    $themePfe = $etudiant->themePfe;
+
+    // Si aucun projet n'est trouvé, renvoyer une erreur
+    if (!$themePfe) {
+        return response()->json(['message' => 'Projet non trouvé'], 404);
+    }
+
+    // Réponse avec les données
+    return response()->json([
+        'etudiant_1_nom' => $etudiant->nom,
+        'etudiant_1_prenom' => $etudiant->prenom,
+        'option' => $etudiant->option,
+        'theme_pfe' => $themePfe,
+    ]);
 }
 
 // Projets proposés par les enseignants
