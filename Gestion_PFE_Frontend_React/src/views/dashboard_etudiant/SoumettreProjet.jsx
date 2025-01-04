@@ -6,6 +6,7 @@ const SoumettreProjet = () => {
   const [formData, setFormData] = useState({
     etudiant_1_id: "", // Identifiant de l'étudiant (exemple ici, à adapter)
     etudiant_2_id: "",
+    option: "",
     type_pfe: "",
     intitule_pfe: "",
     moyenne_m1: 15,
@@ -19,7 +20,7 @@ const SoumettreProjet = () => {
   const [errors, setErrors] = useState({});
   const [projetId, setProjetId] = useState(null); // ID du projet soumis
   const [isEditable, setIsEditable] = useState(true); // Définit si le formulaire est en mode lecture ou modification
-
+ const etudiantId=1;
   /**
    * Valider les champs du formulaire
    */
@@ -113,35 +114,28 @@ const handleChange = (e) => {
    * Charger les données du projet existant lors de la modification
    */
   useEffect(() => {
-    if (!formData.etudiant_1_id) return; // Vérifier si l'ID de l'étudiant est fourni
+    const fetchProjet = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/projet/etudiant/${etudiantId}`);
+        const data = response.data;
   
-    // Effectuer la requête avec la jointure entre les tables
-    axios.get(`http://127.0.0.1:8000/api/projet/etudiant/${formData.etudiant_1_id}`)
-      .then(response => {
-        const { theme_pfe, etudiant_1_nom, etudiant_1_prenom, option } = response.data;
-        
-        // Vérifier si des données de projet existent pour cet étudiant
-        if (theme_pfe) {
-          setProjetId(theme_pfe.id);
-          setFormData(prevData => ({
-            ...prevData,
-            // Ici on met à jour le nom et prénom de l'étudiant ainsi que l'option
-            etudiant_1_id: `${etudiant_1_nom} ${etudiant_1_prenom}`, // Concaténer nom et prénom
-            etudiant_2_id: theme_pfe.etudiant_2_id || "", // L'ID de l'étudiant 2 (si disponible)
-            hasBinome: !!theme_pfe.etudiant_2_id,
-            intitule_pfe: theme_pfe.intitule_pfe,
-            type_pfe: theme_pfe.type_pfe,
-            description: theme_pfe.description,
-            technologies: theme_pfe.technologies,
-            materials: theme_pfe.materials,
-            option: option,  // Option récupérée pour l'étudiant
-          }));
-        }
-      })
-      .catch(error => {
-        alert("Erreur lors du chargement du projet: " + (error.response?.data?.message || 'Veuillez réessayer.'));
-      });
-  }, [formData.etudiant_1_id]);  // Recharger si l'ID de l'étudiant change
+        setFormData({
+          ...formData,
+          etudiant_1_id: `${data.etudiant_nom} ${data.etudiant_prenom}`,
+          option: data.intitule_option_master1 || "",
+          intitule_pfe: data.intitule_pfe || "",
+          type_pfe: data.type_pfe || "",
+          description: data.description || "",
+        });
+        setProjetId(data.id); // Enregistrer l'ID du projet
+      } catch (error) {
+        console.error("Erreur lors de la récupération :", error);
+        alert(error.response?.data?.message || "Erreur serveur.");
+      }
+    };
+  
+    if (etudiantId) fetchProjet();
+  }, [etudiantId]);
   
   /*
   useEffect(() => {
@@ -364,6 +358,99 @@ const handleChange = (e) => {
   );
 };
 
-export default SoumettreProjet;
+export default SoumettreProjet;     
 
 
+
+
+
+
+
+
+
+
+
+
+  /*
+  const [errors, setErrors] = useState({});
+  const [projetId, setProjetId] = useState(null);
+  const [isEditable, setIsEditable] = useState(false); // Initialement en mode lecture
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.etudiant_1_id) newErrors.etudiant_1_id = "Le nom et prénom de l'étudiant 1 sont obligatoires.";
+    if (!formData.intitule_pfe) newErrors.intitule_pfe = "Le titre du PFE est obligatoire.";
+    if (!formData.description || formData.description.length < 20)
+      newErrors.description = "Le résumé doit contenir au moins 20 caractères.";
+    if (formData.hasBinome && !formData.binomeName)
+      newErrors.binomeName = "Le nom du binôme est obligatoire.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+  
+    try {
+      const projectData = {
+        ...formData,
+        etudiant_1_id: formData.etudiant_1_id, // Assurez-vous que c'est bien l'ID numérique
+      };
+      
+  
+      if (!projetId) {
+        // Soumission initiale
+        const response = await axios.post(`http://127.0.0.1:8000/api/projet/${etudiantId}`, projectData);
+        alert("Projet soumis avec succès: " + response.data.message);
+        setProjetId(response.data.theme_pfe.id);
+      } else {
+         // Mise à jour
+         const response = await axios.put(`http://127.0.0.1:8000/api/projet/${projetId}`, formData);
+         alert("Projet mis à jour avec succès: " + response.data.message);
+      }
+      setIsEditable(false); // Désactive les champs après soumission ou mise à jour
+    } catch (error) {
+      console.log(error.response?.data);
+      alert("Erreur: " + (error.response?.data?.message || "Veuillez réessayer."));
+    }
+  };
+  
+
+  const handleEditClick = () => {
+    setIsEditable(true); // Active l'édition
+  };
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  useEffect(() => {
+    if (!etudiantId) return;
+  
+    axios
+      .get(`http://127.0.0.1:8000/api/projet/etudiant/${etudiantId}`)
+      .then((response) => {
+        const { intitule_pfe, type_pfe, description, option, etudiant_id, etudiant_nom, etudiant_prenom } = response.data;
+        setFormData((prevData) => ({
+          ...prevData,
+          intitule_pfe: intitule_pfe || "",
+          type_pfe: type_pfe || "",
+          description: description || "",
+          option: option || "",
+          etudiant_1_id: etudiant_id,  // ID de l'étudiant
+          etudiant_1_nom_prenom: `${etudiant_nom} ${etudiant_prenom}`,  // Nom et prénom à afficher
+        }));
+        setProjetId(response.data.id);
+      })
+      .catch((error) => {
+        alert("Erreur lors du chargement des données: " + (error.response?.data?.message || "Veuillez réessayer."));
+      });
+  }, [etudiantId]);
+  
+*/

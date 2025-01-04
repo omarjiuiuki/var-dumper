@@ -25,7 +25,7 @@ class ChoixPFE extends Model
 
 
 
-
+/*
 
      // Relation avec l'étudiant principal
      public function etudiant1()
@@ -38,4 +38,5 @@ class ChoixPFE extends Model
      {
          return $this->belongsTo(Etudiant::class, 'etudiant_2_id');
      }
+         */
 }

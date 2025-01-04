@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class ChoixPFEController extends Controller
 {
+
     public function store(Request $request)
 {
     $validated = $request->validate([
@@ -98,6 +99,25 @@ public function replace(Request $request, $oldProjectId)
     return response()->json($existingChoice);
 }
 
+public function getProjetByEtudiant($etudiantId)
+{
+    // Recherche du projet de l'étudiant (etudiant_1_id ou etudiant_2_id)
+    $projet = \App\Models\ThemePFE::where('etudiant_1_id', $etudiantId)
+                      ->orWhere('etudiant_2_id', $etudiantId)
+                      ->first();
+
+    // Si le projet est trouvé, retourner l'intitulé et est_valider
+    if ($projet) {
+        return response()->json([
+            'intitule_pfe' => $projet->intitule_pfe,
+            'est_valider' => $projet->est_valider
+        ], 200);
+    } else {
+        return response()->json(['message' => 'Aucun projet trouvé pour cet étudiant.'], 404);
+    }
+}
+
+/*
 public function getProjetByEtudiant($etudiant_id)
 {
     // Récupérer le projet et les informations liées à l'étudiant
@@ -117,6 +137,31 @@ public function getProjetByEtudiant($etudiant_id)
         return response()->json($projet);
     } else {
         return response()->json(['message' => 'Aucun projet trouvé pour cet étudiant.'], 404);
+    }
+}
+*/
+
+
+public function getSelectedProjects($etudiantId)
+{
+    // Récupérer tous les choix de projets pour un étudiant, y compris les détails des projets
+    $selectedProjects = ChoixPFE::where('etudiant_1_id', $etudiantId)
+        ->with(['themePfe']) // Assurez-vous que la relation avec le modèle ThemePFE est définie
+        ->orderBy('nbr_choix', 'asc') // Trier par priorité
+        ->get();
+
+    // Vérifiez si l'étudiant a déjà sélectionné 10 projets
+    if ($selectedProjects->count() >= 10) {
+        // L'étudiant a 10 projets ou plus, on peut lui envoyer ces projets
+        return response()->json([
+            'selected_projects' => $selectedProjects
+        ]);
+    } else {
+        // Si l'étudiant n'a pas encore 10 projets, vous pouvez ajouter une autre logique
+        return response()->json([
+            'selected_projects' => $selectedProjects,
+            'message' => 'L\'étudiant n\'a pas encore sélectionné 10 projets.'
+        ]);
     }
 }
 

@@ -41,7 +41,7 @@ const ChoisirUnProjet = ({ etudiantId }) => {
         })
       )
       .catch((error) => {
-        console.error("Erreur lors du chargement des projets :", error);
+        //console.error("Erreur lors du chargement des projets :", error);
       });
   }, [etudiantId]);
   

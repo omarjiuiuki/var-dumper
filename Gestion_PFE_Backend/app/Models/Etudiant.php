@@ -30,8 +30,20 @@ class Etudiant extends Model
     }
 
     // Relation avec le modèle UtilisateurPfe
+    /*
     public function utilisateur()
     {
         return $this->belongsTo(UtilisateurPfe::class, 'utilisateur_pfe_id');
+    }
+
+    public function utilisateurPfe()
+    {
+        return $this->belongsTo(UtilisateurPfe::class, 'utilisateur_pfe_id');
+    }
+        */
+         // Définir la relation utilisateurPfe
+    public function utilisateurPfe()
+    {
+        return $this->belongsTo(UtilisateurPfe::class);
     }
 }

@@ -9,7 +9,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ThemePfeController;
 use App\Http\Controllers\ChoixPFEController;
 
-
+use App\Http\Controllers\ProjetController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -27,14 +27,16 @@ Route::get('/theme_detail', [ThemePfeController::class, 'afficherThemePfe']);
 Route::put('/modif-email', [EmailController::class, 'modifierEmail']);
 
 //plus de OMAR
+
+
 Route::post('/projet', [ThemePfeController::class, 'store']);
-Route::post('/projet', [ThemePFEController::class, 'store']);
-Route::put('/projet/{id}', [ThemePFEController::class, 'update']);
-Route::get('/projet/{id}', [ThemePFEController::class, 'show']);
+Route::put('/projet/{id}', [ThemePfeController::class, 'update']);
+Route::get('/projet/{id}', [ThemePfeController::class, 'show']);
 // Route pour récupérer l'intitulé et est_valider d'un projet pour un étudiant donné
-Route::get('/projet/etudiant/{etudiantId}/details', [ThemePFEController::class, 'getProjetByEtudiant']);
-Route::get('/api/projects/enseignant', [ThemePFEController::class, 'getEnseignantProjects']);
-Route::get('/api/projects/entreprise', [ThemePFEController::class, 'getEntrepriseProjects']);
+Route::get('/projet/etudiant/{etudiantId}/details', [ThemePfeController::class, 'getProjetForEtudiant']);
+Route::get('/api/projects/enseignant', [ThemePfeController::class, 'getEnseignantProjects']);
+Route::get('/api/projects/entreprise', [ThemePfeController::class, 'getEntrepriseProjects']);
+Route::get('/api/projet/etudiant/{etudiantId}', [ProjetController::class, 'getProjetByEtudiantId']);
 
 
 /*
@@ -97,14 +99,20 @@ Route::get('/choix-pfe/{etudiantId}', [ChoixPFEController::class, 'getSelectedPr
 
 //use App\Http\Controllers\EtudiantController;
 
-//Route::get('etudiant/{id}', [EtudiantController::class, 'getEtudiantDetails']);
+Route::get('etudiant/{id}', [EtudiantController::class, 'getEtudiantDetails']);
+
+
+//soumetre un projet
 
 
 
 
+//Route::get('/projet/etudiant/{etudiantId}', [ProjetController::class, 'getProjetParEtudiant']);
+//Route::post('/projet', [ProjetController::class, 'soumettreProjet']);
 
 
 
+//soumetre un projet
 
 
 

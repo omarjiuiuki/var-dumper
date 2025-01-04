@@ -9,8 +9,58 @@ use App\Models\Etudiant;
 
 class ThemePfeController extends Controller
 {
+    public function store(Request $request)
+    {
+        // Validation des données envoyées dans la requête
+        $validatedData = $request->validate([
+            'intitule_pfe' => 'required|string|max:255',
+            'type_pfe' => 'required|string|max:50',
+            'description' => 'required|string',
+            'option' => 'required|string|max:50',
+            'etudiant_1_id' => 'required|exists:etudiant,id', // L'étudiant 1 doit exister
+            'etudiant_2_id' => 'nullable|exists:etudiant,id', // Binôme facultatif
+            'technologies' => 'nullable|string',
+            'materials' => 'nullable|string',
+        ]);
+
+        // Récupérer l'étudiant 1 pour l'afficher son nom et prénom
+        $etudiant1 = Etudiant::with('utilisateurPfe')->find($request->etudiant_1_id);
+        if (!$etudiant1) {
+            return response()->json(['message' => 'Étudiant 1 non trouvé.'], 404);
+        }
+
+        // Récupérer l'étudiant 2 si disponible
+        $etudiant2 = $request->etudiant_2_id ? Etudiant::with('utilisateurPfe')->find($request->etudiant_2_id) : null;
+
+        // Si un projet existe déjà pour l'étudiant, le mettre à jour
+        $existingProject = ThemePfe::where('etudiant_1_id', $request->etudiant_1_id)->first();
+        if ($existingProject) {
+            $existingProject->update($validatedData);
+            return response()->json([
+                'message' => 'Projet mis à jour avec succès.',
+                'theme_pfe' => $existingProject,
+            ], 200);
+        }
 
 
+
+
+        // Si aucun projet n'existe, créer un nouveau projet
+        $themePfe = ThemePfe::create($validatedData);
+
+        // Retourner les données du projet avec le nom de l'étudiant et l'option
+        return response()->json([
+            'message' => 'Projet enregistré avec succès.',
+            'theme_pfe' => $themePfe,
+            'etudiant_1_nom' => $etudiant1->utilisateurPfe->nom,
+            'etudiant_1_prenom' => $etudiant1->utilisateurPfe->prenom,
+            'etudiant_1_option' => $etudiant1->intitule_option_master1,
+            'etudiant_2_nom' => $etudiant2 ? $etudiant2->utilisateurPfe->nom : null,
+            'etudiant_2_prenom' => $etudiant2 ? $etudiant2->utilisateurPfe->prenom : null,
+        ], 201);
+    }
+
+/*
 public function store(Request $request)
 {
     // Validation des données envoyées dans la requête
@@ -46,7 +96,7 @@ public function store(Request $request)
         'theme_pfe' => $themePfe,
     ], 201);
 }
-
+*/
 // Méthode pour mettre à jour un projet existant
 public function update(Request $request, $id)
 {
@@ -90,68 +140,73 @@ public function show($id)
 }
 
 
-/*
-public function getProjetByEtudiant($etudiantId)
+public function getProjetForEtudiant($etudiantId)
 {
-    // Recherche du projet de l'étudiant (etudiant_1_id ou etudiant_2_id)
-    $projet = \App\Models\ThemePFE::where('etudiant_1_id', $etudiantId)
-                      ->orWhere('etudiant_2_id', $etudiantId)
-                      ->first();
+    $projet = DB::table('theme_pfe')
+        ->join('etudiant', 'theme_pfe.etudiant_1_id', '=', 'etudiant.id')
+        ->join('utilisateurs_pfe', 'etudiant.utilisateur_pfe_id', '=', 'utilisateurs_pfe.id')
+        ->select(
+            'theme_pfe.*',
+            'utilisateurs_pfe.nom as etudiant_nom',
+            'utilisateurs_pfe.prenom as etudiant_prenom',
+            'etudiant.intitule_option_master1 as option'
+        )
+        ->where('theme_pfe.etudiant_1_id', $etudiantId)
+        ->first();
 
-    // Si le projet est trouvé, retourner l'intitulé et est_valider
-    if ($projet) {
-        return response()->json([
-            'intitule_pfe' => $projet->intitule_pfe,
-            'est_valider' => $projet->est_valider
-        ], 200);
-    } else {
-        return response()->json(['message' => 'Aucun projet trouvé pour cet étudiant.'], 404);
-    }
-}
-*/
-
-
-public function getProjetByEtudiant($etudiantId)
-{
-    // Récupération des informations de l'étudiant et de son projet
-    $etudiant = Etudiant::with('themePfe')->find($etudiantId);
-
-    if (!$etudiant) {
-        return response()->json(['message' => 'Étudiant non trouvé'], 404);
-    }
-
-    // Récupération du thème PFE lié à cet étudiant
-    $themePfe = $etudiant->themePfe;
-
-    // Si aucun projet n'est trouvé, renvoyer une erreur
-    if (!$themePfe) {
+    if (!$projet) {
         return response()->json(['message' => 'Projet non trouvé'], 404);
     }
 
-    // Réponse avec les données
-    return response()->json([
-        'etudiant_1_nom' => $etudiant->nom,
-        'etudiant_1_prenom' => $etudiant->prenom,
-        'option' => $etudiant->option,
-        'theme_pfe' => $themePfe,
-    ]);
+    return response()->json($projet);
 }
+
+
 
 // Projets proposés par les enseignants
+
 public function getEnseignantProjects()
 {
-   $projects = \App\Models\ThemePFE::where('propose_par', 'Enseignant')->get();
-   return response()->json($projects);
+    $projects = \App\Models\ThemePfe::where('proposer_par', 'Enseignant')->get();
+    //dd($projects); // Affiche les projets et arrête l'exécution pour inspection
+    return response()->json($projects);
 }
 
-// Projets proposés par les entreprises
 public function getEntrepriseProjects()
 {
-   $projects = \App\Models\ThemePFE::where('propose_par', 'Entreprise')->get();
-   return response()->json($projects);
+    $projects = \App\Models\ThemePfe::where('proposer_par', 'Entreprise')->get();
+    //dd($projects); // Affiche les projets et arrête l'exécution pour inspection
+    return response()->json($projects);
 }
 
-    /*
+
+public function getProjetByEtudiantId($etudiantId)
+{
+    $projet = DB::table('theme_pfe')
+        ->join('etudiant', 'theme_pfe.etudiant_1_id', '=', 'etudiant.id')
+        ->join('utilisateurs_pfe', 'etudiant.utilisateur_pfe_id', '=', 'utilisateurs_pfe.id')
+        ->select(
+            'theme_pfe.intitule_pfe',
+            'theme_pfe.type_pfe',
+            'theme_pfe.description',
+            'theme_pfe.option',
+            'utilisateurs_pfe.nom as etudiant_nom',
+            'utilisateurs_pfe.prenom as etudiant_prenom',
+            'etudiant.intitule_option_master1'
+        )
+        ->where('theme_pfe.proposer_par', '=', 'etudiant')
+        ->where('theme_pfe.etudiant_1_id', '=', $etudiantId)
+        ->first();
+
+    if (!$projet) {
+        return response()->json(['message' => 'Aucun projet trouvé pour cet étudiant.'], 404);
+    }
+
+    return response()->json($projet);
+}
+
+
+/*
     public function afficherThemePfe()
     {
         $theme = DB::table('theme_pfe')->get();
@@ -227,7 +282,7 @@ public function getEntrepriseProjects()
            }
 
 
-
+/*
            public function store(Request $request)
            {
                $validatedData = $request->validate([
